@@ -1,0 +1,8 @@
+sequencia:
+1 - router
+2 - controller
+3 - persistence(Service)
+4 - persistence(DAO) - realiza as operações no banco
+
+
+Model -> utilizado para criar as tabelas no banco de dados
