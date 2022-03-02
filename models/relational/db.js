@@ -27,6 +27,12 @@ db.personagem = require('./personagem.js')(db.mysql,       db.Sequelize);
 db.tipoPersonagem = require('./tipoPersonagem.js')(db.mysql,       db.Sequelize); 
 db.genero = require('./genero.js')(db.mysql,       db.Sequelize);
 db.criador = require('./criador.js')(db.mysql,       db.Sequelize);
+db.idioma = require('./idioma.js')(db.mysql,       db.Sequelize);
+db.caracterEspecial = require('./caracterEspecial.js')(db.mysql,       db.Sequelize);
+db.simbolo = require('./simbolo.js')(db.mysql,       db.Sequelize);
+db.stopword = require('./stopword.js')(db.mysql,       db.Sequelize);
+db.configuracao = require('./configuracao.js')(db.mysql,       db.Sequelize);
+db.reducaoLexical = require('./reducaoLexical.js')(db.mysql,       db.Sequelize);
 db.mysql.pool.sync();
 
 module.exports = db; 

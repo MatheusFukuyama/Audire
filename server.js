@@ -19,6 +19,12 @@ var routePersonagem        = require('./routes/personagem');
 var routeTipoPersonagem        = require('./routes/tipoPersonagem');
 var routeGenero        = require('./routes/genero');
 var routeCriador        = require('./routes/criador');
+var routeIdioma        = require('./routes/idioma');
+var routeCaracterEspecial        = require('./routes/caracterEspecial');
+var routeSimbolo        = require('./routes/simbolo');
+var routeStopword       = require('./routes/stopword');
+var routeConfiguracao       = require('./routes/configuracao');
+var routeReducaoLexical       = require('./routes/reducaoLexical');
 
 
 // creating server instance
@@ -44,7 +50,12 @@ routePersonagem.configure(app);
 routeTipoPersonagem.configure(app);
 routeGenero.configure(app);
 routeCriador.configure(app);
-
+routeIdioma.configure(app);
+routeCaracterEspecial.configure(app);
+routeSimbolo.configure(app);
+routeStopword.configure(app);
+routeConfiguracao.configure(app);
+routeReducaoLexical.configure(app);
 
 app.get('/', (req, res) => {
     res.send('foi')
