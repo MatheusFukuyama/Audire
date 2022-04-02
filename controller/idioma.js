@@ -1,7 +1,7 @@
 /**
  * @author: Helen de Freitas Santos
  * @author: Matheus Shinji Fukuyama
- * @date: 07/02/202
+ * @date: 07/02/2022
  * @desc: custom route for fetching data
 */
 
@@ -60,8 +60,8 @@ function IdiomaController() {
         } 
         else {
                 var idiomaParams = {
-                    id:               req.body.id,
-                    nome:     req.body.nome
+                    id:     req.body.id,
+                    nome:   req.body.nome
                 }
                 
                 var idioma = new Idioma(idiomaParams);

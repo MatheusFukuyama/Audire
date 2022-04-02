@@ -29,16 +29,7 @@ IdiomaValidator.prototype.checkBody = (req, res) => {
 
         errors.push(error);
     }
-
-    if(req.body.idiomaId == ""){
-        error  = {  location: 'body', 
-                    param:    'idiomaId', 
-                    msg:      'O idioma deve ser informado', 
-                    value:     req.body.idiomaId };
-
-        errors.push(error);
-    }
-
+    
     return errors;
 }
 

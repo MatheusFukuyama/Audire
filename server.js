@@ -4,27 +4,27 @@
  * @date: 21/11/2021
  * @desc: Creating server using express.js
  * 
- * http://localhost:8000/rest/users
- * http://localhost:8000/rest/user/1
- * http://localhost:8000/rest/regions
- * http://localhost:8000/rest/region/1
 */
 var express          = require('express');
-// Helen- Comentei para resolver depois
-//var sqlinjection     = require('sql-injection');
 var bodyparser       = require('body-parser');
 var validator        = require("express-validator");
 
-var routePersonagem        = require('./routes/personagem');
-var routeTipoPersonagem        = require('./routes/tipoPersonagem');
-var routeGenero        = require('./routes/genero');
-var routeCriador        = require('./routes/criador');
-var routeIdioma        = require('./routes/idioma');
-var routeCaracterEspecial        = require('./routes/caracterEspecial');
-var routeSimbolo        = require('./routes/simbolo');
-var routeStopword       = require('./routes/stopword');
-var routeConfiguracao       = require('./routes/configuracao');
-var routeReducaoLexical       = require('./routes/reducaoLexical');
+var routePersonagem             = require('./routes/personagem');
+var routeTipoPersonagem         = require('./routes/tipoPersonagem');
+var routeGenero                 = require('./routes/genero');
+var routeCriador                = require('./routes/criador');
+var routeIdioma                 = require('./routes/idioma');
+var routeCaracterEspecial       = require('./routes/caracterEspecial');
+var routeSimbolo                = require('./routes/simbolo');
+var routeStopword               = require('./routes/stopword');
+var routeConfiguracao           = require('./routes/configuracao');
+var routeReducaoLexical         = require('./routes/reducaoLexical');
+var routeAcentuacao             = require('./routes/acentuacao');
+var routePreProcessamento       = require('./routes/preProcessamento');
+var routePergunta               = require('./routes/pergunta');
+var routeContexto               = require('./routes/contexto');
+var routeRespostaContexto       = require('./routes/respostaContexto');
+var routePerguntaMap            = require('./routes/perguntaMap');
 
 
 // creating server instance
@@ -56,8 +56,14 @@ routeSimbolo.configure(app);
 routeStopword.configure(app);
 routeConfiguracao.configure(app);
 routeReducaoLexical.configure(app);
+routeAcentuacao.configure(app);
+routePreProcessamento.configure(app);
+routePergunta.configure(app);
+routeContexto.configure(app);
+routeRespostaContexto.configure(app);
+routePerguntaMap.configure(app);
 
-app.get('/', (req, res) => {
+app.get('/', async(req, res) => {
     res.send('foi')
 })
 

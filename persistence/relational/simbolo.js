@@ -54,7 +54,7 @@ function SimboloPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao incluir simbolo especial',
+                    message:  'Erro ao incluir simbolo',
                     response: err
                 };
 
@@ -84,7 +84,7 @@ function SimboloPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao alterar simbolo especial',
+                    message:  'Erro ao alterar simbolo',
                     response: err
                 };
 

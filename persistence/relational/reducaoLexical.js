@@ -54,7 +54,7 @@ function ReducaoLexicalPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao incluir reducao lexical especial',
+                    message:  'Erro ao incluir reducao lexical',
                     response: err
                 };
 

@@ -1,6 +1,7 @@
 /**
  * @author: Helen de Freitas Santos
- * @date: 07/07/2018
+ * @author: Matheus Shinji Fukuyama
+ * @date: 01/04/2018
  * @desc: custom route for fetching data
 */
 

@@ -33,6 +33,11 @@ db.simbolo = require('./simbolo.js')(db.mysql,       db.Sequelize);
 db.stopword = require('./stopword.js')(db.mysql,       db.Sequelize);
 db.configuracao = require('./configuracao.js')(db.mysql,       db.Sequelize);
 db.reducaoLexical = require('./reducaoLexical.js')(db.mysql,       db.Sequelize);
+db.acentuacao = require('./acentuacao.js')(db.mysql,       db.Sequelize);
+db.pergunta = require('./pergunta.js')(db.mysql,       db.Sequelize);
+db.contexto = require('./contexto.js')(db.mysql,       db.Sequelize);
+db.respostaContexto = require('./respostaContexto.js')(db.mysql,       db.Sequelize);
+db.perguntaMap = require('./perguntaMap.js')(db.mysql,       db.Sequelize);
 db.mysql.pool.sync();
 
 module.exports = db; 

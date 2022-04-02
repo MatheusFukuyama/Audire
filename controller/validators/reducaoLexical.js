@@ -30,15 +30,6 @@ ReducaoLexicalValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(req.body.radical == ""){
-        error  = {  location: 'body', 
-                    param:    'radical', 
-                    msg:      'O radical deve ser informado', 
-                    value:     req.body.radical };
-
-        errors.push(error);
-    }
-
     if(req.body.idiomaId == ""){
         error  = {  location: 'body', 
                     param:    'idiomaId', 

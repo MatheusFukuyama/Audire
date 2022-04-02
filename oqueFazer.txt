@@ -1,1 +1,1 @@
-arrumar o type number do model configuracoes
+organizar os codigos dos arquivos na pasta api

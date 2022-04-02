@@ -54,7 +54,7 @@ function StopwordPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao incluir stopword especial',
+                    message:  'Erro ao incluir stopword',
                     response: err
                 };
 
@@ -84,7 +84,7 @@ function StopwordPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao alterar stopword especial',
+                    message:  'Erro ao alterar stopword',
                     response: err
                 };
 
