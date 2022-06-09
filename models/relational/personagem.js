@@ -11,12 +11,8 @@
 module.exports = (sequelize, DataTypes) => {  
 
     const Personagem = sequelize.pool.define('personagem', {
-        primeiroNome:     DataTypes.STRING,
-        nomeMeio:         DataTypes.STRING,
-        ultimoNome:       DataTypes.STRING,
-        nomeCurto:        DataTypes.STRING,
-        dataCriacao:      DataTypes.STRING,
-        visibilidade:     DataTypes.STRING,
+        nome:             DataTypes.STRING,
+        dataCriacao:      DataTypes.DATE,
       
         tipoPersonagemId: {
             type: DataTypes.INTEGER,
@@ -32,16 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             model: "genero",
             key: "id"
           } 
-      },
-      
-      criadorId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "criador",
-          key: "id"
-        } 
-    }
-
+      }
       },
       {
         freezeTableName: true,

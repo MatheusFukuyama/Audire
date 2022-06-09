@@ -1,12 +1,12 @@
 
 //Cria construtor
-function GeneroValidator() {
+function PerguntaValidator() {
 
 }
 
 
 //Define as funções da classe
-GeneroValidator.prototype.checkBody = (req, res) => {
+PerguntaValidator.prototype.checkBody = (req, res) => {
     //req.sanitize('name').trim();
     
     var errors = []
@@ -39,20 +39,11 @@ GeneroValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(req.body.enunciadoLimpo == ""){
+    if(req.body.pessoaId == ""){
         error  = {  location: 'body', 
-                    param:    'enunciadoLimpo', 
-                    msg:      'O enunciado limpo deve ser informado', 
-                    value:     req.body.enunciadoLimpo };
-
-        errors.push(error);
-    }
-
-    if(req.body.criadorId == ""){
-        error  = {  location: 'body', 
-                    param:    'criadorId', 
-                    msg:      'O criador deve ser informado', 
-                    value:     req.body.criadorId };
+                    param:    'pessoaId', 
+                    msg:      'O id da pessoa deve ser informado', 
+                    value:     req.body.pessoaId };
 
         errors.push(error);
     }
@@ -62,4 +53,4 @@ GeneroValidator.prototype.checkBody = (req, res) => {
 }
 
 //Module.exports é o objeto que será retornado pelo 'require', nesse caso é a função construtora
-module.exports = GeneroValidator
+module.exports = PerguntaValidator

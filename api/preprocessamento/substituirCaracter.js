@@ -9,20 +9,24 @@
 const axios = require('axios')
 
 module.exports = async(text) => {
-    var textFiltred = text
-    console.log("chegou aqui")
+    var textFiltred = text.toLowerCase()
+
+    const baseUrl = 'localhost:8000/rest/acentuacoes'
+    const options = {
+        protocol: 'https',
+        host: '127.0.0.1',
+        port: 8000
+    }
+
+    
     try {
-        const { data } = await axios.get('localhost:8000/rest/acentuacoes', { proxy: {
-            protocol: 'https',
-            host: '127.0.0.1',
-            port: 8000
-          }})
+        const { data } = await axios.get( baseUrl, { proxy: options})
         
         let regex
         data.forEach(acento => {
-            regex = new RegExp(`\\s${acento.caracter}\\s`, "gi");
-
-            textFiltred = textFiltred.replace(regex, ` ${acento.suplente} `)
+            regex = new RegExp(`${acento.caracter}`, "gi");
+            
+            textFiltred = textFiltred.replace(regex, `${acento.suplente}`)
         });
 
         return textFiltred

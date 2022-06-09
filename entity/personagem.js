@@ -6,16 +6,11 @@
 */
 
 var Personagem = function(params) {
-    this.id       = params.id;
-    this.primeiroNome     = params.primeiroNome;
-    this.nomeMeio         = params.nomeMeio;
-    this.ultimoNome       = params.ultimoNome;
-    this.nomeCurto        = params.nomeCurto;
+    this.id               = params.id;
+    this.nome             = params.nome;
     this.dataCriacao      = params.dataCriacao;
-    this.visibilidade     = params.visibilidade;
     this.tipoPersonagemId = params.tipoPersonagemId;
     this.generoId         = params.generoId;
-    this.criadorId        = params.criadorId;
 
 }
 

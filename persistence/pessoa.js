@@ -1,37 +1,36 @@
 /**
  * @author: Helen de Freitas Santos
  * @author: Matheus Shinji Fukuyama
- * @date: 08/02/2022
+ * @date: 09/04/2022
  * @desc: methods for fetching mysql data
 */
-//methods for fetching mysql data
 
 var globals    = require('../models/global.js');
 var persistence;
 var DataBase   = require('../models/database.js');
 var dataBase   = new DataBase();
 
-function CriadorPersistence() {
+function PessoaPersistence() {
 
     this.getPersistence = 
     function () {    
           return new Promise(function (resolve, reject) {
               if   (globals.dataBaseType == 1) {
-                    var Persistence = require('./relational/criador.js');
+                    var Persistence = require('./relational/pessoa.js');
                     var persistence = new Persistence();
                     resolve(persistence);
                   }
               else if   (globals.dataBaseType == 2) {
                   /*firebase ainda não possui o model personagem*/
-                          var Persistence = require('./firebase/criador.js');          
+                          var Persistence = require('./firebase/pessoa.js');          
                           var persistence = new Persistence();
                           resolve(persistence);
                   }
                    else {
                        reject();
                    }
-        }); // fim return new Promise(function (resolve, reject) {
-    }; // fim function (initials) {
+        });
+    };
 
     this.getPersistence()
         .then((data) => {
@@ -44,7 +43,7 @@ function CriadorPersistence() {
         .then((db) => {
             persistence.getAll(db, res);
         });
-    }; // fim this.getAll
+    };
 
     // get object by id
     this.getById = function (id, res) {
@@ -78,4 +77,4 @@ function CriadorPersistence() {
 
 }
 
-module.exports = CriadorPersistence;
+module.exports = PessoaPersistence;

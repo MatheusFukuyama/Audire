@@ -1,7 +1,7 @@
 /**
  * @author: Helen de Freitas Santos
  * @author: Matheus Shinji Fukuyama
- * @date: 08/02/2022
+ * @date: 09/04/2021
  * @desc: methods for fetching mysql data
 */
 //methods for fetching mysql data
@@ -10,13 +10,13 @@
 var Error = require('../../entity/error.js');
 
 
-function CriadorPersistence() {
+function PessoaPersistence() {
     // get all objects data 
     this.getAll = function (db, res) {
         // calling acquire methods and passing callback method that will be execute query
         // return response to server 
 
-        db.criador
+        db.pessoa
             .findAll()
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
@@ -27,7 +27,7 @@ function CriadorPersistence() {
     this.getById = function (db, id, res) {
         // get id as parameter to passing into query and return filter data
 
-        db.criador
+        db.pessoa
             .findAll({ 
                 where: {id: id}
             })
@@ -35,11 +35,10 @@ function CriadorPersistence() {
                 res.send(JSON.parse(JSON.stringify(object)));
             })
     }; // this.getById = function (id, res) {
-
     
     this.add = function (db, object, res) {
         // get object as parameter to passing into query and return filter data
-        db.criador
+        db.pessoa
             .create(object)
             .then(function (addedRecord) {
                 var params = {
@@ -54,7 +53,7 @@ function CriadorPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao incluir criador',
+                    message:  'Erro ao incluir pessoa',
                     response: err
                 };
 
@@ -66,10 +65,8 @@ function CriadorPersistence() {
     
     this.update = function (db, object, res) {
         // get object as parameter to passing into query and return filter data
-        db.criador
+        db.pessoa
             .update(object,
-            //Pode ser assim também
-            //.update({name: object.name, initials: object.initials, regionId: object.region.id},
                 {where: {
                     id: object.id
                 }})
@@ -86,7 +83,7 @@ function CriadorPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao alterar criador',
+                    message:  'Erro ao alterar pessoa',
                     response: err
                 };
 
@@ -97,8 +94,7 @@ function CriadorPersistence() {
     
 
     this.deleteById = function (db, id, res) {
-        // get id as parameter to passing into query and return filter data
-        db.criador
+        db.pessoa
             .destroy({
                 where: {
                     id: id
@@ -134,8 +130,8 @@ function CriadorPersistence() {
                 res.json({error});
             });
 
-    }; // this.deleteById = function (id, res) {
+    };
 
 }
 
-module.exports = CriadorPersistence;
+module.exports = PessoaPersistence;

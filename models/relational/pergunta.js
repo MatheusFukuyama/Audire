@@ -23,10 +23,10 @@
             } 
         },
 
-        criadorId: {
+        pessoaId: {
             type: DataTypes.INTEGER,
             references: {
-              model: "criador",
+              model: "pessoa",
               key: "id"
             } 
         },

@@ -1,12 +1,12 @@
 
 //Cria construtor
-function CriadorValidator() {
+function LocalizaPerguntaValidator() {
 
 }
 
 
 //Define as funções da classe
-CriadorValidator.prototype.checkBody = (req, res) => {
+LocalizaPerguntaValidator.prototype.checkBody = (req, res) => {
     //req.sanitize('name').trim();
     
     var errors = []
@@ -21,27 +21,17 @@ CriadorValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(req.body.nome == ""){
+    if(req.body.pergunta == ""){
         error  = {  location: 'body', 
-                    param:    'nome', 
-                    msg:      'O nome deve ser informado', 
-                    value:     req.body.nome };
+                    param:    'pergunta', 
+                    msg:      'O pergunta deve ser informado', 
+                    value:     req.body.pergunta };
 
         errors.push(error);
     }
-
-    if(req.body.codigo == ""){
-        error  = {  location: 'body', 
-                    param:    'codigo', 
-                    msg:      'O codigo deve ser informado', 
-                    value:     req.body.codigo };
-
-        errors.push(error);
-    }
-
     
     return errors;
 }
 
 //Module.exports é o objeto que será retornado pelo 'require', nesse caso é a função construtora
-module.exports = CriadorValidator
+module.exports = LocalizaPerguntaValidator

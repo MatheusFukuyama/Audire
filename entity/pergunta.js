@@ -11,7 +11,7 @@ var Pergunta = function(params) {
     this.tipo           = params.tipo;
     this.enunciadoLimpo = params.enunciadoLimpo;
     this.perguntaRaiz   = params.perguntaRaiz;
-    this.criadorId      = params.criadorId
+    this.pessoaId       = params.pessoaId;
 }
 
 module.exports = Pergunta;

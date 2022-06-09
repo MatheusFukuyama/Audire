@@ -10,18 +10,21 @@ const axios = require('axios')
 
 module.exports = async(text) => {
     var textFiltred = text
+    const baseUrl = 'localhost:8000/rest/simbolos'
+    const options = {
+        protocol: 'https',
+        host: '127.0.0.1',
+        port: 8000
+    }
     
     try {
-        const { data } = await axios.get('localhost:8000/rest/simbolos', { proxy: {
-            protocol: 'https',
-            host: '127.0.0.1',
-            port: 8000
-          }})
-        
+        const { data } = await axios.get(baseUrl, { proxy: options})
+    
         let regex
         data.forEach(simboloObjeto => {
-            regex = new RegExp(`${simboloObjeto.simbolo}`, 'g');
-
+            
+            regex = new RegExp(`\\${simboloObjeto.simbolo}`, 'g');
+            
             textFiltred = textFiltred.replace(regex, "")
         });
 

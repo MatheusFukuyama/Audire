@@ -43,7 +43,6 @@ function ContextoController() {
                 titulo:         req.body.titulo,
                 dataCriacao:    req.body.dataCriacao,
                 personagemId:   req.body.personagemId,
-                perguntaId:     req.body.perguntaId
             }
 
             var contexto = new Contexto(contextoParams);
@@ -67,8 +66,7 @@ function ContextoController() {
                 id:             req.body.id,
                 titulo:         req.body.titulo,
                 dataCriacao:    req.body.dataCriacao,
-                personagemId:   req.body.personagemId,
-                perguntaId:     req.body.perguntaId
+                personagemId:   req.body.personagemId
             }
 
             var contexto = new Contexto(contextoParams);

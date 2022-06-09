@@ -7,6 +7,7 @@
 
 var validator    = new (require('./validators/pergunta.js'))()
 var Pergunta   = require('../entity/pergunta.js');
+var preProcessamentoFuncao = require('../api/preprocessamento/preProcessamentoFuncao')
 
 function PerguntaController() {
     var Persistence  = require('../persistence/pergunta.js');
@@ -28,7 +29,7 @@ function PerguntaController() {
     };
 
     // add one object
-    this.add = function (req, res) {
+    this.add = async function (req, res) {
         // ************************************************
         // Ver uma forma de juntar os dois erros
         // ************************************************
@@ -42,11 +43,11 @@ function PerguntaController() {
                 id:             '',
                 enunciado:      req.body.enunciado,
                 tipo:           req.body.tipo,
-                enunciadoLimpo: req.body.enunciadoLimpo,
+                enunciadoLimpo: await preProcessamentoFuncao(req.body.enunciado),
                 perguntaRaiz:   req.body.perguntaRaiz,
-                criadorId:      req.body.criadorId
+                pessoaId:       req.body.pessoaId
             }
-
+           
             var pergunta = new Pergunta(perguntaParams);
 
             persistence.add(pergunta, res);
@@ -69,7 +70,7 @@ function PerguntaController() {
                 tipo:           req.body.tipo,
                 enunciadoLimpo: req.body.enunciadoLimpo,
                 perguntaRaiz:   req.body.perguntaRaiz,
-                criadorId:      req.body.criadorId
+                pessoaId:       req.body.pessoaId
             }
 
             var pergunta = new Pergunta(perguntaParams);

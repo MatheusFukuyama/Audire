@@ -10,8 +10,6 @@ var Contexto = function(params) {
     this.titulo         = params.titulo;
     this.dataCriacao    = params.dataCriacao;
     this.personagemId   = params.personagemId;
-    this.perguntaId     = params.perguntaId;
-
 }
 
 module.exports = Contexto;

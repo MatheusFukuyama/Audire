@@ -14,28 +14,28 @@ const { response } = require('express');
 const { format } = require('path');
 
 
-async function substituirPalavra(radical) {
-
-    let {data} = await axios.get(`localhost:8000/rest/reducaoLexical/${radical}`, { proxy: {
+const baseUrlRadical = `localhost:8000/rest/reducaoLexical/`
+const baseUrlReducao = `localhost:8000/rest/reducoesLexicais`
+    const options = {
         protocol: 'https',
         host: '127.0.0.1',
         port: 8000
-    }})
+}
+
+async function substituirPalavra(radical) {
+
+    let {data} = await axios.get(baseUrlRadical + `${radical}`, { proxy: options})
 
     return data[0].palavra
     
 }
 
 module.exports = async(text) => {
-    var textFiltred = text.toLowerCase()
-    let options, radical
+    var textFiltred = text
+    let radical
 
     try {
-        let { data } = await axios.get('localhost:8000/rest/reducoesLexicais', { proxy: {
-            protocol: 'https',
-            host: '127.0.0.1',
-            port: 8000
-        }})
+        let { data } = await axios.get(baseUrlReducao, { proxy: options})
 
         textFiltred = textFiltred.split(" ");
         

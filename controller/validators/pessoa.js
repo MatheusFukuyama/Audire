@@ -1,12 +1,12 @@
 
 //Cria construtor
-function PersonagemValidator() {
+function PessoaValidator() {
 
 }
 
 
 //Define as funções da classe
-PersonagemValidator.prototype.checkBody = (req, res) => {
+PessoaValidator.prototype.checkBody = (req, res) => {
     //req.sanitize('name').trim();
     
     var errors = []
@@ -21,11 +21,20 @@ PersonagemValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(req.body.nome == ""){
+    if(req.body.primerioNome == ""){
         error  = {  location: 'body', 
-                    param:    'nome', 
-                    msg:      'O nome deve ser informado', 
-                    value:     req.body.nome };
+                    param:    'primeiroNome', 
+                    msg:      'O primeiro nome deve ser informado', 
+                    value:     req.body.primeiroNome };
+
+        errors.push(error);
+    }
+
+    if(!req.body.ultimoNome){
+        error  = {  location: 'body', 
+                    param:    'ultimoNome', 
+                    msg:      'O último nome deve ser informado', 
+                    value:     req.body.ultimoNome };
 
         errors.push(error);
     }
@@ -39,26 +48,27 @@ PersonagemValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-
-    if(!req.body.tipoPersonagemId){
+    if(!req.body.email){
         error  = {  location: 'body', 
-                    param:    'tipoPersonagem', 
-                    msg:      'tipo do personagem deve ser informado', 
-                    value:     req.body.tipoPersonagemId };
+                    param:    'email', 
+                    msg:      'O email deve ser informado', 
+                    value:     req.body.email };
 
         errors.push(error);
     }
     
-    if(!req.body.generoId){
+    if(!req.body.senha){
         error  = {  location: 'body', 
-                    param:    'genero', 
-                    msg:      'genero deve ser informado', 
-                    value:     req.body.genero };
+                    param:    'senha', 
+                    msg:      'A senha deve ser informado', 
+                    value:     req.body.senha };
 
         errors.push(error);
     }
+
+
     return errors;
 }
 
 //Module.exports é o objeto que será retornado pelo 'require', nesse caso é a função construtora
-module.exports = PersonagemValidator
+module.exports = PessoaValidator

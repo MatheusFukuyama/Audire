@@ -11,20 +11,12 @@
     
     const contexto = sequelize.pool.define('contexto', {
         titulo:  DataTypes.STRING,
-        dataCriacao: DataTypes.STRING,
+        dataCriacao: DataTypes.DATE,
 
         personagemId: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'personagem',
-                key: 'id' 
-            }
-        },
-
-        perguntaId: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'pergunta',
                 key: 'id' 
             }
         }

@@ -1,15 +1,15 @@
 /**
  * @author: Helen de Freitas Santos
  * @author: Matheus Shinji Fukuyama
- * @date: 21/11/2021
+ * @date: 08/04/2022
  * @desc: custom route for fetching data
 */
 
-var validator    = new (require('./validators/personagem.js'))()
-var Personagem   = require('../entity/personagem.js');
+var validator    = new (require('./validators/pessoa.js'))()
+var Pessoa   = require('../entity/pessoa.js');
 
-function PersonagemController() {
-    var Persistence  = require('../persistence/personagem.js');
+function PessoaController() {
+    var Persistence  = require('../persistence/pessoa.js');
     var persistence  = new Persistence();
     
     // get all objects data 
@@ -56,17 +56,18 @@ function PersonagemController() {
             res.status(400).send(errors);
         } 
         else {          
-            var personagemParams = {
-                id:               '',
-                nome:             req.body.nome,
+            var pessoaParams = {
+                id:       '',
+                primeiroNome:     req.body.primeiroNome,
+                ultimoNome:       req.body.ultimoNome,
                 dataCriacao:      req.body.dataCriacao,
-                tipoPersonagemId: req.body.tipoPersonagemId,
-                generoId:         req.body.generoId,
+                email:            req.body.email,
+                senha:            req.body.senha
             }
-            console.log(personagemParams)
-            var personagem = new Personagem(personagemParams);
+            
+            var pessoa = new Pessoa(pessoaParams);
 
-            persistence.add(personagem, res);
+            persistence.add(pessoa, res);
             }
 
     };
@@ -80,17 +81,19 @@ function PersonagemController() {
             res.status(400).send(errors);
         } 
         else {
-            var personagemParams = {
+            var pessoaParams = {
                 id:               req.body.id,
-                nome:             req.body.nome,
+                primeiroNome:     req.body.primeiroNome,
+                ultimoNome:       req.body.ultimoNome,
                 dataCriacao:      req.body.dataCriacao,
-                tipoPersonagemId: req.body.tipoPersonagemId,
-                generoId:         req.body.generoId,
+                email:            req.body.email,
+                senha:            req.body.senha
             }
             
-            var personagem = new Personagem(personagemParams);
+            var pessoa = new Pessoa(pessoaParams);
 
-            persistence.update(personagem, res);
+
+            persistence.update(pessoa, res);
         }
     };
 
@@ -101,4 +104,4 @@ function PersonagemController() {
 
 }
 
-module.exports = PersonagemController;
+module.exports = PessoaController;

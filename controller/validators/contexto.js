@@ -47,16 +47,6 @@ ContextoValidator.prototype.checkBody = (req, res) => {
 
         errors.push(error);
     }
-
-    if(req.body.perguntaId == ""){
-        error  = {  location: 'body', 
-                    param:    'perguntaId', 
-                    msg:      'O id da pergunta deve ser informado', 
-                    value:     req.body.perguntaId };
-
-        errors.push(error);
-    }
-
     
     return errors;
 }

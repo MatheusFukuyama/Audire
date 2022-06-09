@@ -5,6 +5,7 @@ const removerStopwordFilter = require('./removerStopword')
 const reducaoLexicalFilter = require('./reducaoLexical.js')
 
 module.exports = (texto, res) => {
+        
         substituirCaracterFilter(texto)
         .then(textoSubCaracter => removerCaracterFilter(textoSubCaracter))
         .then(textoRemoveCaracter => removerSimbolosFilter(textoRemoveCaracter))

@@ -12,7 +12,6 @@ var validator        = require("express-validator");
 var routePersonagem             = require('./routes/personagem');
 var routeTipoPersonagem         = require('./routes/tipoPersonagem');
 var routeGenero                 = require('./routes/genero');
-var routeCriador                = require('./routes/criador');
 var routeIdioma                 = require('./routes/idioma');
 var routeCaracterEspecial       = require('./routes/caracterEspecial');
 var routeSimbolo                = require('./routes/simbolo');
@@ -25,6 +24,8 @@ var routePergunta               = require('./routes/pergunta');
 var routeContexto               = require('./routes/contexto');
 var routeRespostaContexto       = require('./routes/respostaContexto');
 var routePerguntaMap            = require('./routes/perguntaMap');
+var routePessoa                 = require('./routes/pessoa');
+var routeLocalizaPergunta       = require('./routes/localizaPergunta');
 
 
 // creating server instance
@@ -49,7 +50,6 @@ app.use(bodyparser.urlencoded({ extended : true}));
 routePersonagem.configure(app);
 routeTipoPersonagem.configure(app);
 routeGenero.configure(app);
-routeCriador.configure(app);
 routeIdioma.configure(app);
 routeCaracterEspecial.configure(app);
 routeSimbolo.configure(app);
@@ -62,6 +62,8 @@ routePergunta.configure(app);
 routeContexto.configure(app);
 routeRespostaContexto.configure(app);
 routePerguntaMap.configure(app);
+routePessoa.configure(app);
+routeLocalizaPergunta.configure(app);
 
 app.get('/', async(req, res) => {
     res.send('foi')

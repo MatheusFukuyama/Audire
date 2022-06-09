@@ -8,7 +8,6 @@
 var Idioma = function(params) {
     this.id       = params.id;
     this.nome     = params.nome;
-    this.idiomaId = params.idiomaId
 }
 
 module.exports = Idioma;
