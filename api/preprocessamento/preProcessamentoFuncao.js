@@ -11,6 +11,5 @@ module.exports = async(texto) => {
         const textoStop = await removerStopwordFilter(textoSimbolo)
         const textoReducao = await reducaoLexicalFilter(textoStop)
 
-        
         return textoReducao
 }

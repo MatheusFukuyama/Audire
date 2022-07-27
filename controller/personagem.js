@@ -59,9 +59,8 @@ function PersonagemController() {
             var personagemParams = {
                 id:               '',
                 nome:             req.body.nome,
-                dataCriacao:      req.body.dataCriacao,
-                tipoPersonagemId: req.body.tipoPersonagemId,
                 generoId:         req.body.generoId,
+                pessoaId:         req.body.pessoaId,
             }
             console.log(personagemParams)
             var personagem = new Personagem(personagemParams);
@@ -83,9 +82,8 @@ function PersonagemController() {
             var personagemParams = {
                 id:               req.body.id,
                 nome:             req.body.nome,
-                dataCriacao:      req.body.dataCriacao,
-                tipoPersonagemId: req.body.tipoPersonagemId,
                 generoId:         req.body.generoId,
+                pessoaId:         req.body.pessoaId,
             }
             
             var personagem = new Personagem(personagemParams);

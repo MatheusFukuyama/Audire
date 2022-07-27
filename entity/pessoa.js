@@ -12,6 +12,7 @@ var Pessoa = function(params) {
     this.dataCriacao      = params.dataCriacao;
     this.email            = params.email;
     this.senha            = params.senha;
+    this.generoId         = params.generoId;
 
 }
 

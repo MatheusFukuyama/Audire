@@ -1,16 +1,16 @@
 /**
  * @author: Helen de Freitas Santos
  * @author: Matheus Shinji Fukuyama
- * @date: 21/11/2021
+ * @date: 11/06/2022
  * @desc: custom route for fetching data
 */
 
-var validator    = new (require('./validators/tipoPersonagem.js'))()
-var TipoPersonagem   = require('../entity/tipoPersonagem.js');
+var validator    = new (require('./validators/estrategia.js'))()
+var Estrategia   = require('../entity/estrategia.js');
 
-function TipoPersonagemController() {
-    var Persistence  = require('../persistence/tipoPersonagem.js');
-    var persistence  = new Persistence();
+function EstrategiaController() {
+    var Persistence      = require('../persistence/estrategia.js');
+    var persistence      = new Persistence();
     
     // get all objects data 
     this.getAll = function (res) {
@@ -24,7 +24,7 @@ function TipoPersonagemController() {
 
     // get object by name 
     this.getByName = function (req, res) {
-        persistence.getByName(req.params.name, res);
+        persistence.getByName(req.params.caracter, res);
     };
 
     // add one object
@@ -37,16 +37,18 @@ function TipoPersonagemController() {
         if(errors.length > 0){
             res.status(400).send(errors);
         } 
-        else {            
-            var tipoPersonagemParams = {
-                id:       '',
-                nome:     req.body.nome
+        else {
+            var EstrategiaParams = {
+                id:                 '',
+                nomeMetodo:         req.body.nomeMetodo,
+                local:              req.body.local,
+                dialogoId:          req.body.dialogoId,
             }
-
-            var tipoPersonagem = new TipoPersonagem(tipoPersonagemParams);
-
-            persistence.add(tipoPersonagem, res);
-        }
+            
+            var estrategia = new Estrategia(EstrategiaParams);
+   
+            persistence.add(estrategia, res);
+            }
 
     };
 
@@ -59,14 +61,16 @@ function TipoPersonagemController() {
             res.status(400).send(errors);
         } 
         else {
-                var tipoPersonagemParams = {
-                    id:               req.body.id,
-                    nome:     req.body.nome
-                }
-                
-                var tipoPersonagem = new TipoPersonagem(tipoPersonagemParams);
-
-                persistence.update(tipoPersonagem, res);
+            var EstrategiaParams = {
+                id:                 req.body.id,
+                nomeMetodo:         req.body.nomeMetodo,
+                local:              req.body.local,
+                dialogoId:          req.body.dialogoId,
+            }
+            
+            var estrategia = new Estrategia(EstrategiaParams);
+   
+            persistence.update(estrategia, res);
         }
     };
 
@@ -77,4 +81,4 @@ function TipoPersonagemController() {
 
 }
 
-module.exports = TipoPersonagemController;
+module.exports = EstrategiaController;

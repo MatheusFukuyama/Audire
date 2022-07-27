@@ -8,9 +8,8 @@
 var Personagem = function(params) {
     this.id               = params.id;
     this.nome             = params.nome;
-    this.dataCriacao      = params.dataCriacao;
-    this.tipoPersonagemId = params.tipoPersonagemId;
     this.generoId         = params.generoId;
+    this.pessoaId         = params.pessoaId;
 
 }
 

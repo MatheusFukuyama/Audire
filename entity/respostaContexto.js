@@ -6,11 +6,10 @@
 */
 
 var RespostaContexto = function(params) {
-    this.id           = params.id;
-    this.resposta     = params.resposta;
-    this.ordem        = params.ordem;
-    this.contextoId   = params.contextoId;
-    this.perguntaId   = params.perguntaId;
+    this.id                   = params.id;
+    this.resposta             = params.resposta;
+    this.ordem                = params.ordem;
+    this.perguntaContextoId   = params.perguntaContextoId;
 }
 
 module.exports = RespostaContexto;

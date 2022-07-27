@@ -1,40 +1,46 @@
 /**
  * @author: Helen de Freitas Santos
  * @author: Matheus Shinji Fukuyama
- * @date: 13/12/2021
+ * @date: 11/06/2022
  * @desc: methods for fetching mysql data
 */
+//methods for fetching mysql data
 
 
 var Error = require('../../entity/error.js');
 
 
-function TipoPersonagemPersistence() {
+function EstrategiaPersistence() {
     // get all objects data 
     this.getAll = function (db, res) {
-        
-        db.tipoPersonagem
+        // calling acquire methods and passing callback method that will be execute query
+        // return response to server 
+
+        db.estrategia
             .findAll()
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
             });
-    };
+    }; // this.getAll = function (res) {
 
     // get object by id
     this.getById = function (db, id, res) {
+        // get id as parameter to passing into query and return filter data
 
-        db.tipoPersonagem
+        db.estrategia
             .findAll({ 
                 where: {id: id}
             })
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
             })
-    }; 
+    }; // this.getById = function (id, res) {
+
     
     this.add = function (db, object, res) {
-        db.tipoPersonagem
-            .create(object)
+        // get object as parameter to passing into query and return filter data
+        db.estrategia
+            .create(object) 
             .then(function (addedRecord) {
                 var params = {
                     code:     200,
@@ -48,18 +54,19 @@ function TipoPersonagemPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao incluir tipo de personagem',
+                    message:  'Erro ao incluir estrategia',
                     response: err
                 };
 
                 var error = new Error(params);
                 res.json({error});
             });
-    };
+    }; // this.add = function (object, res) {
 
     
     this.update = function (db, object, res) {
-        db.tipoPersonagem
+        // get object as parameter to passing into query and return filter data
+        db.estrategia
             .update(object,
                 {where: {
                     id: object.id
@@ -77,18 +84,18 @@ function TipoPersonagemPersistence() {
             .catch(function (err) {
                 var params = {
                     code:     500,
-                    message:  'Erro ao alterar tipo de personagem',
+                    message:  'Erro ao alterar estrategia',
                     response: err
                 };
 
                 var error = new Error(params);
                 res.json({error});
             });
-    };
+    }; // this.update = function (object, res) {
     
 
     this.deleteById = function (db, id, res) {
-        db.tipoPersonagem
+        db.estrategia
             .destroy({
                 where: {
                     id: id
@@ -124,8 +131,8 @@ function TipoPersonagemPersistence() {
                 res.json({error});
             });
 
-    };
+    }; // this.deleteById = function (id, res) {
 
 }
 
-module.exports = TipoPersonagemPersistence;
+module.exports = EstrategiaPersistence;

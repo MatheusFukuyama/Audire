@@ -56,7 +56,7 @@ function PerguntaController() {
     };
 
     // update one object 
-    this.update = function (req, res) {
+    this.update = async function (req, res) {
         // Usando o exemplo do Leonardo
         var errors = validator.checkBody(req);
 
@@ -68,7 +68,7 @@ function PerguntaController() {
                 id:             req.body.id,
                 enunciado:      req.body.enunciado,
                 tipo:           req.body.tipo,
-                enunciadoLimpo: req.body.enunciadoLimpo,
+                enunciadoLimpo: await preProcessamentoFuncao(req.body.enunciado),
                 perguntaRaiz:   req.body.perguntaRaiz,
                 pessoaId:       req.body.pessoaId
             }

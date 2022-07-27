@@ -10,7 +10,6 @@ var bodyparser       = require('body-parser');
 var validator        = require("express-validator");
 
 var routePersonagem             = require('./routes/personagem');
-var routeTipoPersonagem         = require('./routes/tipoPersonagem');
 var routeGenero                 = require('./routes/genero');
 var routeIdioma                 = require('./routes/idioma');
 var routeCaracterEspecial       = require('./routes/caracterEspecial');
@@ -26,6 +25,11 @@ var routeRespostaContexto       = require('./routes/respostaContexto');
 var routePerguntaMap            = require('./routes/perguntaMap');
 var routePessoa                 = require('./routes/pessoa');
 var routeLocalizaPergunta       = require('./routes/localizaPergunta');
+var routeComunicacao            = require('./routes/comunicacao');
+var routeDialogo                = require('./routes/dialogo');
+var routeDialogoMap             = require('./routes/dialogoMap');
+var routeEstrategia             = require('./routes/estrategia');
+var routePerguntaContexto       = require('./routes/perguntaContexto');
 
 
 // creating server instance
@@ -48,7 +52,6 @@ app.use(bodyparser.urlencoded({ extended : true}));
 //set application route with server instance
 
 routePersonagem.configure(app);
-routeTipoPersonagem.configure(app);
 routeGenero.configure(app);
 routeIdioma.configure(app);
 routeCaracterEspecial.configure(app);
@@ -64,6 +67,11 @@ routeRespostaContexto.configure(app);
 routePerguntaMap.configure(app);
 routePessoa.configure(app);
 routeLocalizaPergunta.configure(app);
+routeComunicacao.configure(app);
+routeDialogo.configure(app);
+routeDialogoMap.configure(app);
+routeEstrategia.configure(app);
+routePerguntaContexto.configure(app);
 
 app.get('/', async(req, res) => {
     res.send('foi')

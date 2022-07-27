@@ -6,9 +6,8 @@
 */
 
 var Genero = function(params) {
-    this.id       = params.id;
-    this.nome     = params.nome;
-
+    this.id         = params.id;
+    this.nome       = params.nome;
 }
 
 module.exports = Genero;

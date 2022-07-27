@@ -39,15 +39,6 @@ PessoaValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(!req.body.dataCriacao){
-        error  = {  location: 'body', 
-                    param:    'dataCriacao', 
-                    msg:      'A data da criação deve ser informado', 
-                    value:     req.body.dataCriacao };
-
-        errors.push(error);
-    }
-
     if(!req.body.email){
         error  = {  location: 'body', 
                     param:    'email', 
@@ -62,6 +53,15 @@ PessoaValidator.prototype.checkBody = (req, res) => {
                     param:    'senha', 
                     msg:      'A senha deve ser informado', 
                     value:     req.body.senha };
+
+        errors.push(error);
+    }
+
+    if(!req.body.generoId){
+        error  = {  location: 'body', 
+                    param:    'generoId', 
+                    msg:      'O id di genero deve ser informado', 
+                    value:     req.body.generoId };
 
         errors.push(error);
     }

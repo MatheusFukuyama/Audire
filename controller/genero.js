@@ -60,7 +60,7 @@ function GeneroController() {
         } 
         else {
                 var generoParams = {
-                    id:               req.body.id,
+                    id:       req.body.id,
                     nome:     req.body.nome
                 }
                 

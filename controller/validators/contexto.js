@@ -30,15 +30,6 @@ ContextoValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(req.body.dataCriacao == ""){
-        error  = {  location: 'body', 
-                    param:    'dataCriacao', 
-                    msg:      'A data de criação deve ser informado', 
-                    value:     req.body.dataCriacao };
-
-        errors.push(error);
-    }
-
     if(req.body.personagemId == ""){
         error  = {  location: 'body', 
                     param:    'personagemId', 

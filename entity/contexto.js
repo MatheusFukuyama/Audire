@@ -8,7 +8,6 @@
 var Contexto = function(params) {
     this.id             = params.id;
     this.titulo         = params.titulo;
-    this.dataCriacao    = params.dataCriacao;
     this.personagemId   = params.personagemId;
 }
 

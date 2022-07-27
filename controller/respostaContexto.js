@@ -39,13 +39,12 @@ function RespostaContextoController() {
         } 
         else {
             var respostaContextoParams = {
-                id:       '',
-                resposta:     req.body.resposta,
-                ordem:     req.body.ordem,
-                contextoId:    req.body.contextoId,
-                perguntaId:    req.body.perguntaId
+                id:                    '',
+                resposta:              req.body.resposta,
+                ordem:                 req.body.ordem,
+                perguntaContextoId:    req.body.perguntaContextoId
             }
-
+           
             var respostaContexto = new RespostaContexto(respostaContextoParams);
 
             persistence.add(respostaContexto, res);
@@ -63,11 +62,10 @@ function RespostaContextoController() {
         } 
         else {
             var respostaContextoParams = {
-                id:             req.body.id,
-                resposta:       req.body.resposta,
-                ordem:          req.body.ordem,
-                contextoId:     req.body.contextoId,
-                perguntaId:     req.body.perguntaId
+                id:                     req.body.id,
+                resposta:               req.body.resposta,
+                ordem:                  req.body.ordem,
+                perguntaContextoId:     req.body.perguntaContextoId
             }
 
             var respostaContexto = new RespostaContexto(respostaContextoParams);

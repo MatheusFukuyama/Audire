@@ -13,9 +13,29 @@ module.exports = (sequelize, DataTypes) => {
     const Pessoa = sequelize.pool.define('pessoa', {
         primeiroNome:     DataTypes.STRING,
         ultimoNome:       DataTypes.STRING,
-        dataCriacao:      DataTypes.STRING,
         email:            DataTypes.STRING,
-        senha:            DataTypes.STRING
+        senha:            DataTypes.STRING,
+
+        generoId: {
+          type: DataTypes.INTEGER,
+          references: {
+            model: 'genero',
+            key: 'id'
+          }
+        },
+
+        created_at: {
+          type: 'TIMESTAMP',
+          defaultValue: sequelize.pool.literal('CURRENT_TIMESTAMP'),
+          allowNull: false
+        },
+
+        updated_at: {
+          type: 'TIMESTAMP',
+          defaultValue: sequelize.pool.literal('CURRENT_TIMESTAMP'),
+          allowNull: false
+        }
+
       },
       {
         freezeTableName: true,

@@ -6,6 +6,7 @@
 */
 //methods for fetching mysql data
 
+const perguntaMapInserir = require('../../api/maps/perguntaMapInserir')
 
 var Error = require('../../entity/error.js');
 
@@ -46,6 +47,9 @@ function PerguntaPersistence() {
                     message:  'OK',
                     response: 'Record is successfully added.'
                 };
+
+                // console.log(addedRecord.dataValues)
+                perguntaMapInserir(addedRecord.dataValues.enunciadoLimpo, addedRecord.dataValues.id, res)
 
                 var error = new Error(params);
                 res.json({error});

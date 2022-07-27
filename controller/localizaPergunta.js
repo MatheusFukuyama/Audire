@@ -6,32 +6,32 @@
 */
 
 var validator    = new (require('./validators/localizaPergunta.js'))()
-var perguntaIgual = require('../api/localizaPergunta/procuraPerguntaIgual.js')
-var perguntaSimilar = require('../api/localizaPergunta/procuraPerguntaSimilar.js')
+var perguntaInteira = require('../api/localizarPergunta/inteira/localizarPerguntaInteira.js')
+var perguntaToken = require('../api/localizarPergunta/token/localizarPerguntaPorToken.js')
 
 
 function LocalizaPerguntaController() {
 
-    this.procuraPerguntaIgual = function (pergunta, contextoId, req, res)  {
+    this.procuraPerguntaInteira = function (pergunta, contextoId, req, res)  {
         var errors = validator.checkBody(req);
 
         if(errors.length > 0){
             res.status(400).send(errors);
         } 
         else {
-            perguntaIgual(pergunta, contextoId, res)
+            perguntaInteira(pergunta, contextoId, res)
         }
         
     }
 
-    this.procuraPerguntaSimilar = function (pergunta, contextoId, req, res)  {
+    this.procuraPerguntaToken = function (pergunta, contextoId, req, res)  {
         var errors = validator.checkBody(req);
-
+        
         if(errors.length > 0){
             res.status(400).send(errors);
         } 
         else {
-            perguntaSimilar(pergunta, contextoId, res)
+            perguntaToken(pergunta, contextoId, res)
         }
         
     }

@@ -10,24 +10,30 @@
  module.exports = (sequelize, DataTypes) => {
     
     const respostaContexto = sequelize.pool.define('respostaContexto', {
-        resposta:  DataTypes.TEXT,
+        resposta:  DataTypes.STRING,
         ordem:     DataTypes.INTEGER,
         
-        contextoId: {
+        perguntaContextoId: {
             type: DataTypes.INTEGER,
             references: {
-              model: "contexto",
+              model: "perguntaContexto",
               key: "id"
             } 
         },
 
-        perguntaId: {
-            type: DataTypes.INTEGER,
-            references: {
-              model: "pergunta",
-              key: "id"
-            } 
+        created_at: {
+            type: 'TIMESTAMP',
+            defaultValue: sequelize.pool.literal('CURRENT_TIMESTAMP'),
+            allowNull: false
+        },
+        
+        updated_at: {
+          type: 'TIMESTAMP',
+          defaultValue: sequelize.pool.literal('CURRENT_TIMESTAMP'),
+          allowNull: false
         }
+  
+        
     }, 
     {
         freezeTableName: true,

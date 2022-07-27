@@ -62,7 +62,8 @@ function PessoaController() {
                 ultimoNome:       req.body.ultimoNome,
                 dataCriacao:      req.body.dataCriacao,
                 email:            req.body.email,
-                senha:            req.body.senha
+                senha:            req.body.senha,
+                generoId:         req.body.generoId,
             }
             
             var pessoa = new Pessoa(pessoaParams);
@@ -87,7 +88,8 @@ function PessoaController() {
                 ultimoNome:       req.body.ultimoNome,
                 dataCriacao:      req.body.dataCriacao,
                 email:            req.body.email,
-                senha:            req.body.senha
+                senha:            req.body.senha,
+                generoId:         req.body.generoId
             }
             
             var pessoa = new Pessoa(pessoaParams);

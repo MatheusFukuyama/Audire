@@ -29,25 +29,6 @@ PersonagemValidator.prototype.checkBody = (req, res) => {
 
         errors.push(error);
     }
-
-    if(!req.body.dataCriacao){
-        error  = {  location: 'body', 
-                    param:    'dataCriacao', 
-                    msg:      'A data da criação deve ser informado', 
-                    value:     req.body.dataCriacao };
-
-        errors.push(error);
-    }
-
-
-    if(!req.body.tipoPersonagemId){
-        error  = {  location: 'body', 
-                    param:    'tipoPersonagem', 
-                    msg:      'tipo do personagem deve ser informado', 
-                    value:     req.body.tipoPersonagemId };
-
-        errors.push(error);
-    }
     
     if(!req.body.generoId){
         error  = {  location: 'body', 
@@ -57,6 +38,16 @@ PersonagemValidator.prototype.checkBody = (req, res) => {
 
         errors.push(error);
     }
+
+    if(!req.body.pessoaId){
+        error  = {  location: 'body', 
+                    param:    'pessoaId', 
+                    msg:      'O id da pessoa deve ser informado', 
+                    value:     req.body.pessoaId };
+
+        errors.push(error);
+    }
+
     return errors;
 }
 

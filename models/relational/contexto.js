@@ -11,7 +11,6 @@
     
     const contexto = sequelize.pool.define('contexto', {
         titulo:  DataTypes.STRING,
-        dataCriacao: DataTypes.DATE,
 
         personagemId: {
             type: DataTypes.INTEGER,
@@ -19,7 +18,20 @@
                 model: 'personagem',
                 key: 'id' 
             }
+        },
+
+        created_at: {
+            type: 'TIMESTAMP',
+            defaultValue: sequelize.pool.literal('CURRENT_TIMESTAMP'),
+            allowNull: false
+        },
+
+        updated_at: {
+            type: 'TIMESTAMP',
+            defaultValue: sequelize.pool.literal('CURRENT_TIMESTAMP'),
+            allowNull: false
         }
+  
     }, 
     {
         freezeTableName: true,

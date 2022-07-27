@@ -29,7 +29,6 @@ GeneroValidator.prototype.checkBody = (req, res) => {
 
         errors.push(error);
     }
-
     
     return errors;
 }

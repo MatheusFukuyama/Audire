@@ -39,20 +39,11 @@ RespostaContextoValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(req.body.perguntaId == ""){
+    if(req.body.perguntaContextoId == ""){
         error  = {  location: 'body', 
-                    param:    'perguntaId', 
-                    msg:      'O id da Pergunta deve ser informado', 
-                    value:     req.body.perguntaId };
-
-        errors.push(error);
-    }
-
-    if(req.body.contextoId == ""){
-        error  = {  location: 'body', 
-                    param:    'contextoId', 
-                    msg:      'O id do contexto deve ser informado', 
-                    value:     req.body.contextoId };
+                    param:    'perguntaContextoId', 
+                    msg:      'O id da tabela perguntaContexto deve ser informado', 
+                    value:     req.body.perguntaContextoId };
 
         errors.push(error);
     }

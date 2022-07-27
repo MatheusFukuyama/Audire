@@ -14,12 +14,12 @@ module.exports = {
 
         // adding route for object, here app is express instance which provide use
         // get method for handling get request from http server. 
-        app.post('/rest/localizaPergunta/igual', function (req, res) {
-            controller.procuraPerguntaIgual(req.body.pergunta, req.body.contextoId, req, res);
+        app.post('/rest/localizaPergunta/token', function (req, res) {
+            controller.procuraPerguntaToken(req.body.pergunta, req.body.contextoId, req, res);
         });
 
-        app.post('/rest/localizaPergunta/similar', function (req, res) {
-            controller.procuraPerguntaSimilar(req.body.pergunta, req.body.contextoId, req, res);
+        app.post('/rest/localizaPergunta/inteira', function (req, res) {
+            controller.procuraPerguntaInteira(req.body.pergunta, req.body.contextoId, req, res);
         });
     }
 
