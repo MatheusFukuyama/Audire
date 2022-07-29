@@ -30,10 +30,7 @@ module.exports = async(pergunta, contextoId, res) => {
        
         let posicaoPalavra
         let resultado
-
-        console.log("-----------------")
-        console.log("| C O N T I D O   |")
-        console.log("-----------------")
+        let perguntaEncontrada = {}
 
         data.forEach(pergunta => {
             resultado = pergunta.enunciadoLimpo.split(' ')
@@ -43,8 +40,11 @@ module.exports = async(pergunta, contextoId, res) => {
                     resultado.splice(posicaoPalavra, 1)
                 }
                 
-                if(resultado.length == 0)
-                    return true
+                if(resultado.length == 0) {
+                    perguntaEncontrada = pergunta
+                    perguntaEncontrada.encontrado = true
+                    return perguntaEncontrada
+                }
 
             })
         })
@@ -59,13 +59,17 @@ module.exports = async(pergunta, contextoId, res) => {
                     }
                 })
                 
-                if(resultado.length == 0)
-                    return true
+                if(resultado.length == 0) {
+                    perguntaEncontrada = pergunta
+                    perguntaEncontrada.encontrado = true
+                    return perguntaEncontrada
+                }
 
             })
         })
-
-        return false
+        
+        perguntaEncontrada.encontrado = false
+        return perguntaEncontrada
             
     } catch(err) {
         console.error(err)

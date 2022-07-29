@@ -21,6 +21,10 @@ module.exports = {
         app.post('/rest/localizaPergunta/inteira', function (req, res) {
             controller.procuraPerguntaInteira(req.body.pergunta, req.body.contextoId, req, res);
         });
+
+        app.post('/rest/localizaPergunta', function (req, res) {
+            controller.localizarPergunta(req.body.pergunta, req.body.contextoId, req, res);
+        });
     }
 
 };

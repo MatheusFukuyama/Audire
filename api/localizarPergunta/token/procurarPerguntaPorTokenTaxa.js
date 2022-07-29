@@ -29,11 +29,7 @@ module.exports = async(pergunta, contextoId, res) => {
         let qntToken = 0
         let maiorTaxa = 0
         let taxaAtual = 0
-        let raizId
-
-        console.log("-----------------")
-        console.log("| T A X A  |")
-        console.log("-----------------")
+        let perguntaEncontrada = {}
 
         data.forEach(pergunta => {
             if(pergunta.perguntaRaiz == null) {
@@ -65,11 +61,8 @@ module.exports = async(pergunta, contextoId, res) => {
 
                 if(taxaAtual > maiorTaxa){
                     maiorTaxa = taxaAtual
-                    raizId = pergunta.id
+                    perguntaEncontrada = pergunta
                 }
-
-                console.log('igualdade:')
-                console.log(maiorTaxa, taxaAtual)
 
                 taxaAtual = 0
                 qntToken = 0
@@ -77,8 +70,8 @@ module.exports = async(pergunta, contextoId, res) => {
         })
 
        
-
-        res.send(`${raizId}`)
+        perguntaEncontrada.encontrado = true
+        return perguntaEncontrada
 
     } catch(err) {
         console.error(err)

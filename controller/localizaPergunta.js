@@ -8,6 +8,7 @@
 var validator    = new (require('./validators/localizaPergunta.js'))()
 var perguntaInteira = require('../api/localizarPergunta/inteira/localizarPerguntaInteira.js')
 var perguntaToken = require('../api/localizarPergunta/token/localizarPerguntaPorToken.js')
+var localizarPergunta = require('../api/localizarPergunta/localizaPergunta')
 
 
 function LocalizaPerguntaController() {
@@ -32,6 +33,18 @@ function LocalizaPerguntaController() {
         } 
         else {
             perguntaToken(pergunta, contextoId, res)
+        }
+        
+    }
+
+    this.localizarPergunta = function (pergunta, contextoId, req, res)  {
+        var errors = validator.checkBody(req);
+        
+        if(errors.length > 0){
+            res.status(400).send(errors);
+        } 
+        else {
+            localizarPergunta(pergunta, contextoId, res)
         }
         
     }

@@ -29,32 +29,39 @@ module.exports = async(pergunta, contextoId, res) => {
     try {
         const { data } = await axios.get( baseUrlPergunta, { proxy: options})
         let encontrado = false
+        let maiorSimilaridade = 0
+        let similar
+        let perguntaEncontrada = {}
 
         data.forEach(perguntaEnsinada => {
             if(perguntaEnsinada.enunciado === pergunta && !encontrado) {
-                if(procurarResposta(perguntaEnsinada.id, contextoId, res)){
-                    encontrado = true
-                }
+                encontrado = true
+                perguntaEncontrada = perguntaEnsinada
             }    
         });
 
         if(!encontrado){
-            let maiorSimilaridade = 0
-            let similar
-            let perguntaEncontrada
             data.forEach(perguntaEnsinada => {
                 similar = similaridade(perguntaEnsinada.enunciado, pergunta)
                 if( similar >= .9) {
                     if(similar > maiorSimilaridade){
                         maiorSimilaridade = similar 
                         perguntaEncontrada = perguntaEnsinada
+                        encontrado = true
                     }
                 }
-            })  
-
-            procurarResposta(pergunta.id, contextoId, res)
-            
+            })
         }
+
+        if(encontrado) {
+            perguntaEncontrada.encontrado = true
+            perguntaEncontrada.metodo = 'localizarPerguntaInteira'
+            return perguntaEncontrada
+        } else {
+            perguntaEncontrada.encontrado = false
+            return perguntaEncontrada
+        }
+
 
     } catch(err) {
         console.error(err)

@@ -7,7 +7,6 @@
 //methods for fetching mysql data
 
 const axios = require('axios')
-const gerarToken = require('../localizarPergunta/gerarToken')
 
 module.exports = async(enunciadoLimpo, perguntaId, res) => {
 
@@ -21,7 +20,7 @@ module.exports = async(enunciadoLimpo, perguntaId, res) => {
 
     try {
 
-        const palavras = gerarToken(enunciadoLimpo)
+        const palavras = enunciadoLimpo.split(' ')
         
         palavras.forEach(palavra => {
             axios.post( baseUrl, {

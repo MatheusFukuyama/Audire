@@ -7,12 +7,13 @@
 //methods for fetching mysql data
 
 const axios = require('axios')
+const similaridade = require('jaro-winkler')
 
 const procurarResposta = require('../../localizarResposta/localizaRespostaId')
 const preProcessamentoFuncao = require('../../preprocessamento/preProcessamentoFuncao')
 const procurarPerguntaPorTokenContido = require('./procurarPerguntaPorTokenContido')
-const similaridade = require('jaro-winkler')
 const procurarPerguntaPorTokenTaxa = require('./procurarPerguntaPorTokenTaxa')
+const procurarPerguntaPorTokenExclusivo = require('./procurarPerguntaPorTokenExclusivo')
 
 module.exports = async(pergunta, contextoId, res) => {
     
@@ -34,14 +35,14 @@ module.exports = async(pergunta, contextoId, res) => {
         data.forEach(perguntaEnsinada => {
             if(perguntaEnsinada.enunciadoLimpo === perguntaLimpa) {   
                 // procurarResposta(baseUrlResposta, options, data[0].id, contextoId, res)
-                encontrado = true;
-                res.send(perguntaEnsinada)
+                perguntaEncontrada = perguntaEnsinada
+                perguntaEncontrada.encontrado = true
             }
         });
 
         
         let maiorSimilaridade = 0;
-        let perguntaEncontrada
+        let perguntaEncontrada = {}
         let similar = 0
         if(!encontrado) {
             data.forEach(perguntaEnsinada => {
@@ -52,24 +53,32 @@ module.exports = async(pergunta, contextoId, res) => {
                     if(similar > maiorSimilaridade){
                         maiorSimilaridade = similar
                         perguntaEncontrada = perguntaEnsinada
+                        perguntaEncontrada.encontrado = true
                     }
                     
                 }
             });
 
-            if(perguntaEncontrada) {
-                // procurarResposta(baseUrlResposta, options, data[0].id, contextoId, res)
-                encontrado = true;
-                res.send(pergunta)
-            } if(!encontrado){    
-                if(await procurarPerguntaPorTokenContido(pergunta, contextoId, res)){
-                    encontrado = true
-                }
-
-                console.log(encontrado)
-            } if(!encontrado){
-                if( await procurarPerguntaPorTokenTaxa(pergunta, contextoId, res)) {
-                    encontrado = true
+            if(perguntaEncontrada.encontrado) {
+                perguntaEncontrada.metodo = 'localizarPerguntaToken'
+                return perguntaEncontrada
+            } else {    
+                perguntaEncontrada = await procurarPerguntaPorTokenContido(pergunta, contextoId, res)
+                if(perguntaEncontrada.encontrado){
+                    perguntaEncontrada.metodo = 'procurarPerguntaPorTokenContido'
+                    return perguntaEncontrada
+                } else {
+                    perguntaEncontrada = await procurarPerguntaPorTokenExclusivo(pergunta, contextoId, res)
+                    if(perguntaEncontrada.encontrado){
+                        perguntaEncontrada.metodo = 'procurarPerguntaPorTokenExclusivo'
+                        return perguntaEncontrada
+                    } else {
+                        perguntaEncontrada = await procurarPerguntaPorTokenTaxa(pergunta, contextoId, res)
+                        if(perguntaEncontrada.encontrado){
+                            perguntaEncontrada.metodo = 'procurarPerguntaPorTokenTaxa'
+                            return perguntaEncontrada
+                        }
+                    }
                 }
             }
         }
