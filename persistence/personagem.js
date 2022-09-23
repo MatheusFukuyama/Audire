@@ -38,10 +38,10 @@ function PersonagemPersistence() {
         });
 
     // get all objects data 
-    this.getAll = function (res) {
+    this.getAll = function (res, pessoaId) {
         dataBase.getDataBase(globals.dataBaseType)
         .then((db) => {
-            persistence.getAll(db, res);
+            persistence.getAll(db, pessoaId, res);
         });
     };
 

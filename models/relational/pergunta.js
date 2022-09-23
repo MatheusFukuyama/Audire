@@ -13,6 +13,7 @@
         enunciado:  DataTypes.TEXT,
         tipo: DataTypes.STRING,
         enunciadoLimpo: DataTypes.TEXT,
+        chamada: DataTypes.INTEGER,
     
         perguntaRaiz: {
             type: DataTypes.INTEGER,

@@ -12,12 +12,14 @@ var Error = require('../../entity/error.js');
 
 function DialogoPersistence() {
     // get all objects data 
-    this.getAll = function (db, res) {
+    this.getAll = function (db, res, pessoaId) {
         // calling acquire methods and passing callback method that will be execute query
         // return response to server 
 
         db.dialogo
-            .findAll()
+            .findAll({
+                where: {pessoaId}
+            })
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
             });
@@ -29,7 +31,7 @@ function DialogoPersistence() {
 
         db.dialogo
             .findAll({ 
-                where: {id: id}
+                where: {id: id, pessoaId}
             })
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));

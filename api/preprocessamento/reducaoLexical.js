@@ -22,20 +22,20 @@ const baseUrlReducao = `localhost:8000/rest/reducoesLexicais`
         port: 8000
 }
 
-async function substituirPalavra(radical) {
+async function substituirPalavra(radical, token) {
 
-    let {data} = await axios.get(baseUrlRadical + `${radical}`, { proxy: options})
+    let {data} = await axios.get(baseUrlRadical + `${radical}`, { proxy: options, headers: { 'Authorization': token }})
 
     return data[0].palavra
     
 }
 
-module.exports = async(text) => {
+module.exports = async(text, token) => {
     var textFiltred = text
     let radical
 
     try {
-        let { data } = await axios.get(baseUrlReducao, { proxy: options})
+        let { data } = await axios.get(baseUrlReducao, { proxy: options, headers: { 'Authorization': token }})
 
         textFiltred = textFiltred.split(" ");
         

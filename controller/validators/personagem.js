@@ -39,15 +39,6 @@ PersonagemValidator.prototype.checkBody = (req, res) => {
         errors.push(error);
     }
 
-    if(!req.body.pessoaId){
-        error  = {  location: 'body', 
-                    param:    'pessoaId', 
-                    msg:      'O id da pessoa deve ser informado', 
-                    value:     req.body.pessoaId };
-
-        errors.push(error);
-    }
-
     return errors;
 }
 

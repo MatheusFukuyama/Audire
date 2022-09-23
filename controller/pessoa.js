@@ -7,6 +7,7 @@
 
 var validator    = new (require('./validators/pessoa.js'))()
 var Pessoa   = require('../entity/pessoa.js');
+const bcrypt = require('bcrypt-nodejs')
 
 function PessoaController() {
     var Persistence  = require('../persistence/pessoa.js');
@@ -46,7 +47,7 @@ function PessoaController() {
 
 
     // add one object
-    this.add = function (req, res) {
+    this.add = async function (req, res) {
         // ************************************************
         // Ver uma forma de juntar os dois erros
         // ************************************************
@@ -55,14 +56,16 @@ function PessoaController() {
         if(errors.length > 0){
             res.status(400).send(errors);
         } 
-        else {          
+        else {
+
+            const hashedPassword = bcrypt.hashSync(req.body.senha)
+
             var pessoaParams = {
                 id:       '',
                 primeiroNome:     req.body.primeiroNome,
                 ultimoNome:       req.body.ultimoNome,
-                dataCriacao:      req.body.dataCriacao,
                 email:            req.body.email,
-                senha:            req.body.senha,
+                senha:            hashedPassword,
                 generoId:         req.body.generoId,
             }
             
@@ -82,13 +85,15 @@ function PessoaController() {
             res.status(400).send(errors);
         } 
         else {
+
+            const hashedPassword = bcrypt.hashSync(req.body.senha)
+
             var pessoaParams = {
                 id:               req.body.id,
                 primeiroNome:     req.body.primeiroNome,
                 ultimoNome:       req.body.ultimoNome,
-                dataCriacao:      req.body.dataCriacao,
                 email:            req.body.email,
-                senha:            req.body.senha,
+                senha:            hashedPassword,
                 generoId:         req.body.generoId
             }
             

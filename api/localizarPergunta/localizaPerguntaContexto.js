@@ -14,13 +14,13 @@ const axios = require('axios')
         port: 8000
     }
 
-module.exports = async(perguntaId, contextoId, res) => {
+module.exports = async(perguntaId, contextoId, res, token) => {
 
     try {
         let perguntaContextoEncontrado = {}
         let encontrado = false
 
-        const { data } = await axios.get(baseUrl, { proxy: options })
+        const { data } = await axios.get(baseUrl, { proxy: options, headers: {'Authorization': token} })
 
         data.forEach(perguntaContexto => {
             

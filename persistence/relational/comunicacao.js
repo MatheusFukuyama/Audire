@@ -12,12 +12,14 @@ var Error = require('../../entity/error.js');
 
 function ComunicacaoPersistence() {
     // get all objects data 
-    this.getAll = function (db, res) {
+    this.getAll = function (db, res, pessoaId) {
         // calling acquire methods and passing callback method that will be execute query
         // return response to server 
 
         db.comunicacao
-            .findAll()
+            .findAll({
+                where: { pessoaId }
+            })
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
             });
@@ -133,6 +135,35 @@ function ComunicacaoPersistence() {
 
     }; // this.deleteById = function (id, res) {
 
+    this.updateTermino = function (db, object, res) {
+        // get object as parameter to passing into query and return filter data
+        db.comunicacao
+            .update({object},
+                {where: {
+                    id: object.id
+                }})
+            .then(function (updatedRecord) {
+                var params = {
+                    code:     200,
+                    message:  'OK',
+                    response: 'Record is successfully updated.'
+                };
+
+                var error = new Error(params);
+                res.json({error});
+            })
+            .catch(function (err) {
+                var params = {
+                    code:     500,
+                    message:  'Erro ao alterar comunicacao',
+                    response: err
+                };
+
+                var error = new Error(params);
+                res.json({error});
+            });
+    }; // this.update = function (object, res) {
+    
 }
 
 module.exports = ComunicacaoPersistence;

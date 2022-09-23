@@ -7,6 +7,9 @@
 
 var validator    = new (require('./validators/dialogo.js'))()
 var Dialogo   = require('../entity/dialogo.js');
+var conversa  = require('../api/conversar/conversa');
+const jwt = require('jwt-simple')
+const { authSecret } = require('../.env')
 
 function DialogoController() {
     const preProcessamento = require('../api/preprocessamento/preProcessamentoFuncao')
@@ -14,13 +17,17 @@ function DialogoController() {
     var persistence      = new Persistence();
     
     // get all objects data 
-    this.getAll = function (res) {
-        persistence.getAll(res);
+    this.getAll = function (res, token) {
+        const payload = token.replace('bearer ', '')
+        const pessoa = jwt.decode(payload, authSecret)
+        persistence.getAll(res, pessoa.id);
     };
 
     // get object by id 
-    this.getById = function (req, res) {
-        persistence.getById(req.params.id, res);
+    this.getById = function (req, res, token) {
+        const payload = token.replace('bearer ', '')
+        const pessoa = jwt.decode(payload, authSecret)
+        persistence.getById(req.params.id, res, pessoa.id);
     };
 
     // get object by name 
@@ -29,10 +36,13 @@ function DialogoController() {
     };
 
     // add one object
-    this.add = async function (req, res) {
+    this.add = async function (req, res, token) {
         // ************************************************
         // Ver uma forma de juntar os dois erros
         // ************************************************
+        const payload = token.replace('bearer ', '')
+        const pessoa = jwt.decode(payload, authSecret)
+
         var errors  = validator.checkBody(req, res);        
 
         if(errors.length > 0){
@@ -40,25 +50,26 @@ function DialogoController() {
         } 
         else {
             var DialogoParams = {
-                id:                 '',
-                dataRealizacao:     req.body.dataRealizacao,
-                pergunta:           req.body.pergunta,
-                perguntaLimpa:      await preProcessamento(req.body.pergunta),
-                resposta:           req.body.resposta,
-                perguntaRaiz:       req.body.perguntaRaiz,
-                perguntaSinonimo:   req.body.perguntaSinonimo,
-                respostaContextoId: req.body.respostaContextoId
+                id:                     '',
+                pergunta:               req.body.pergunta,
+                perguntaLimpa:          await preProcessamento(req.body.pergunta, token),
+                resposta:               req.body.resposta,
+                perguntaRaizId:         req.body.perguntaRaizId,
+                perguntaSinonimoId:     req.body.perguntaSinonimoId,
+                respostaContextoId:     req.body.respostaContextoId,
+                comunicacaoId:          req.body.comunicacaoId,
+                pessoaId:               pessoa.id
             }
             
             var dialogo = new Dialogo(DialogoParams);
-   
-            persistence.add(dialogo, res);
+            console.log(dialogo)
+            // persistence.add(dialogo, res);
             }
 
     };
 
     // update one object 
-    this.update = async function (req, res) {
+    this.update = async function (req, res, token) {
         // Usando o exemplo do Leonardo
         var errors = validator.checkBody(req);
 
@@ -66,15 +77,20 @@ function DialogoController() {
             res.status(400).send(errors);
         } 
         else {
+            const payload = token.replace('bearer ', '')
+            const pessoa = jwt.decode(payload, authSecret)
+
             var DialogoParams = {
                 id:                 req.body.id,
                 dataRealizacao:     req.body.dataRealizacao,
                 pergunta:           req.body.pergunta,
-                perguntaLimpa:      await preProcessamentoFuncao(req.body.pergunta),
+                perguntaLimpa:      await preProcessamentoFuncao(req.body.pergunta, token),
                 resposta:           req.body.resposta,
                 perguntaRaiz:       req.body.perguntaRaiz,
                 perguntaSinonimo:   req.body.perguntaSinonimo,
-                respostaContextoId: req.body.respostaContextoId
+                respostaContextoId: req.body.respostaContextoId,
+                comunicacaoId:      req.body.comunicacaoId,
+                pessoaId:           pessoa.id
             }
             
             var dialogo = new Dialogo(DialogoParams);
@@ -88,6 +104,11 @@ function DialogoController() {
         persistence.deleteById(id, res);
     };
 
+    this.conversar = function (req, res, token) {
+        conversa(req, res, token)
+    };
+
+    
 }
 
 module.exports = DialogoController;

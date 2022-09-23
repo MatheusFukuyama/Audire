@@ -6,9 +6,9 @@
 */
 
 var Configuracao = function(params) {
-    this.id       = params.id;
+    this.id                       = params.id;
     this.percentualSimilaridade   = params.percentualSimilaridade;
-    this.idiomaId = params.idiomaId
+    this.idiomaId                 = params.idiomaId
 }
 
 module.exports = Configuracao

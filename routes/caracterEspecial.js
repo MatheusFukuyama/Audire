@@ -10,32 +10,38 @@ module.exports = {
     configure: function (app) {
         //custom route for fetching data
         var Controller = require('../controller/caracterEspecial');
+        const passport = require('passport')
         var controller = new Controller();
 
         // adding route for object, here app is express instance which provide use
-        // get method for handling get request from http server. 
-        app.get('/rest/caracteresEspeciais', function (req, res) {
-            controller.getAll(res);
+        // get method for handling get request from http server.
+        app.get('/rest/caracteresEspeciais', passport.authenticate('jwt', { session: false}), function (req, res) {
+            const index = req.rawHeaders.indexOf('Authorization')
+            controller.getAll(res, req.rawHeaders[index + 1]);
         });
 
         // here we gets id from request and passing to it object method.
-        app.get('/rest/caracterEspecial/:id/', function (req, res) {
-            controller.getById(req, res);
+        app.get('/rest/caracterEspecial/:id/', passport.authenticate('jwt', { session: false}), function (req, res) {
+            const index = req.rawHeaders.indexOf('Authorization')
+            controller.getById(req, res, req.rawHeaders[index + 1]);
         });
 
         // here we insert an object.
-        app.post('/rest/caracterEspecial', function (req, res) {
-            controller.add(req, res);
+        app.post('/rest/caracterEspecial', passport.authenticate('jwt', { session: false}), function (req, res) {
+            const index = req.rawHeaders.indexOf('Authorization')
+            controller.add(req, res, req.rawHeaders[index + 1]);
         });
 
         // here we update an object.
-        app.put('/rest/caracterEspecial', function (req, res) {
-            controller.update(req, res);
+        app.put('/rest/caracterEspecial', passport.authenticate('jwt', { session: false}), function (req, res) {
+            const index = req.rawHeaders.indexOf('Authorization')
+            controller.update(req, res, req.rawHeaders[index + 1]);
         });
 
         // here we delete an object passing id to it object method.
-        app.delete('/rest/caracterEspecial/:id', function (req, res) {
-            controller.deleteById(req.params.id, res);
+        app.delete('/rest/caracterEspecial/:id', passport.authenticate('jwt', { session: false}), function (req, res) {
+            const index = req.rawHeaders.indexOf('Authorization')
+            controller.deleteById(req.params.id, res, req.rawHeaders[index + 1]);
         });
     }
 

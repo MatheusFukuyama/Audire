@@ -13,12 +13,14 @@ var Error = require('../../entity/error.js');
 
 function PerguntaPersistence() {
     // get all objects data 
-    this.getAll = function (db, res) {
+    this.getAll = function (db, pessoaId, res) {
         // calling acquire methods and passing callback method that will be execute query
         // return response to server 
 
         db.pergunta
-            .findAll()
+            .findAll({
+                where: { pessoaId }
+            })
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
             });

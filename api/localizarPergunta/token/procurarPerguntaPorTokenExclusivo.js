@@ -9,17 +9,15 @@
 const axios = require('axios')
 const similaridade = require('jaro-winkler')
 
-const procurarResposta = require('../../localizarResposta/localizaRespostaId')
 const preProcessamentoFuncao = require('../../preprocessamento/preProcessamentoFuncao')
 
-module.exports = async(pergunta, contextoId, res) => {
+module.exports = async(pergunta, contextoId, res, token) => {
 
-    const perguntaLimpa = await preProcessamentoFuncao(pergunta)
+    const perguntaLimpa = await preProcessamentoFuncao(pergunta, token)
     const tokens = perguntaLimpa.split(' ')
     
     
     const baseUrlPergunta = 'localhost:8000/rest/perguntas'
-    const baseUrlResposta = 'localhost:8000/rest/respostas'
     const options = {
         protocol: 'https',
         host: '127.0.0.1',
@@ -28,7 +26,7 @@ module.exports = async(pergunta, contextoId, res) => {
 
     try {
 
-        const { data } = await axios.get( baseUrlPergunta, { proxy: options})
+        const { data } = await axios.get( baseUrlPergunta, { proxy: options, headers: { 'Authorization': token }})
        
         let unica = 0
         let perguntaEncontrada = {}

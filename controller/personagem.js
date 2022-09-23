@@ -7,14 +7,18 @@
 
 var validator    = new (require('./validators/personagem.js'))()
 var Personagem   = require('../entity/personagem.js');
+const jwt = require('jwt-simple')
+const { authSecret } = require('../.env')
 
 function PersonagemController() {
     var Persistence  = require('../persistence/personagem.js');
     var persistence  = new Persistence();
     
     // get all objects data 
-    this.getAll = function (res) {
-        persistence.getAll(res);
+    this.getAll = function (res, token) {
+        const payload = token.replace('bearer ', '')
+        const pessoa = jwt.decode(payload, authSecret)
+        persistence.getAll(res, pessoa.id);
     };
 
     // get object by id 
@@ -46,7 +50,7 @@ function PersonagemController() {
 
 
     // add one object
-    this.add = function (req, res) {
+    this.add = function (req, res, token) {
         // ************************************************
         // Ver uma forma de juntar os dois erros
         // ************************************************
@@ -55,12 +59,15 @@ function PersonagemController() {
         if(errors.length > 0){
             res.status(400).send(errors);
         } 
-        else {          
+        else {
+            const payload = token.replace('bearer ', '')
+            const pessoa = jwt.decode(payload, authSecret)
+
             var personagemParams = {
                 id:               '',
                 nome:             req.body.nome,
                 generoId:         req.body.generoId,
-                pessoaId:         req.body.pessoaId,
+                pessoaId:         pessoa.id,
             }
             console.log(personagemParams)
             var personagem = new Personagem(personagemParams);

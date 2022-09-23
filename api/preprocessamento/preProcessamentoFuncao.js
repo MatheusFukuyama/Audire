@@ -4,12 +4,12 @@ const removerSimbolosFilter = require('./removerSimbolo')
 const removerStopwordFilter = require('./removerStopword')
 const reducaoLexicalFilter = require('./reducaoLexical.js')
 
-module.exports = async(texto) => {
-        const textoCaracterSubstituido = await substituirCaracterFilter(texto)
-        const textoCaracter = await removerCaracterFilter(textoCaracterSubstituido)
-        const textoSimbolo = await removerSimbolosFilter(textoCaracter)
-        const textoStop = await removerStopwordFilter(textoSimbolo)
-        const textoReducao = await reducaoLexicalFilter(textoStop)
+module.exports = async(texto, token) => {
+        const textoCaracterSubstituido = await substituirCaracterFilter(texto, token)
+        const textoCaracter = await removerCaracterFilter(textoCaracterSubstituido, token)
+        const textoSimbolo = await removerSimbolosFilter(textoCaracter, token)
+        const textoStop = await removerStopwordFilter(textoSimbolo, token)
+        const textoReducao = await reducaoLexicalFilter(textoStop, token)
 
         return textoReducao
 }

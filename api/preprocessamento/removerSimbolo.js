@@ -8,7 +8,7 @@
 
 const axios = require('axios')
 
-module.exports = async(text) => {
+module.exports = async(text, token) => {
     var textFiltred = text
     const baseUrl = 'localhost:8000/rest/simbolos'
     const options = {
@@ -18,7 +18,7 @@ module.exports = async(text) => {
     }
     
     try {
-        const { data } = await axios.get(baseUrl, { proxy: options})
+        const { data } = await axios.get(baseUrl, { proxy: options, headers: { 'Authorization': token }})
     
         let regex
         data.forEach(simboloObjeto => {

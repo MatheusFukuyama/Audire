@@ -39,18 +39,18 @@ function DialogoPersistence() {
         });
 
     // get all objects data 
-    this.getAll = function (res) {
+    this.getAll = function (res, pessoaId) {
         dataBase.getDataBase(globals.dataBaseType)
         .then((db) => {
-            persistence.getAll(db, res);
+            persistence.getAll(db, res, pessoaId);
         });
     };
 
     // get object by id
-    this.getById = function (id, res) {
+    this.getById = function (id, res, pessoaId) {
         dataBase.getDataBase(globals.dataBaseType)
         .then((db) => {
-            persistence.getById(db, id, res);
+            persistence.getById(db, id, res, pessoaId   );
         });
     };
 

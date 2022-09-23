@@ -10,7 +10,6 @@ var Personagem = function(params) {
     this.nome             = params.nome;
     this.generoId         = params.generoId;
     this.pessoaId         = params.pessoaId;
-
 }
 
 module.exports = Personagem;

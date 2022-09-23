@@ -8,14 +8,18 @@
 var validator    = new (require('./validators/pergunta.js'))()
 var Pergunta   = require('../entity/pergunta.js');
 var preProcessamentoFuncao = require('../api/preprocessamento/preProcessamentoFuncao')
+const jwt = require('jwt-simple')
+const { authSecret } = require('../.env')
 
 function PerguntaController() {
     var Persistence  = require('../persistence/pergunta.js');
     var persistence  = new Persistence();
     
     // get all objects data 
-    this.getAll = function (res) {
-        persistence.getAll(res);
+    this.getAll = function (res, token) {
+        const payload = token.replace('bearer ', '')
+        const pessoa = jwt.decode(payload, authSecret)
+        persistence.getAll(res, pessoa.id);
     };
 
     // get object by id 
@@ -29,7 +33,7 @@ function PerguntaController() {
     };
 
     // add one object
-    this.add = async function (req, res) {
+    this.add = async function (req, res, token) {
         // ************************************************
         // Ver uma forma de juntar os dois erros
         // ************************************************
@@ -39,13 +43,17 @@ function PerguntaController() {
             res.status(400).send(errors);
         }
         else {
+            const payload = token.replace('bearer ', '')
+            const pessoa = jwt.decode(payload, authSecret)
+
             var perguntaParams = {
                 id:             '',
                 enunciado:      req.body.enunciado,
                 tipo:           req.body.tipo,
-                enunciadoLimpo: await preProcessamentoFuncao(req.body.enunciado),
+                enunciadoLimpo: await preProcessamentoFuncao(req.body.enunciado, token),
+                chamada:        0,
                 perguntaRaiz:   req.body.perguntaRaiz,
-                pessoaId:       req.body.pessoaId
+                pessoaId:       pessoa.id
             }
            
             var pergunta = new Pergunta(perguntaParams);
@@ -56,7 +64,7 @@ function PerguntaController() {
     };
 
     // update one object 
-    this.update = async function (req, res) {
+    this.update = async function (req, res, token) {
         // Usando o exemplo do Leonardo
         var errors = validator.checkBody(req);
 
@@ -64,16 +72,21 @@ function PerguntaController() {
             res.status(400).send(errors);
         } 
         else {
+            const payload = token.replace('bearer ', '')
+            const pessoa = jwt.decode(payload, authSecret)
+
             var perguntaParams = {
                 id:             req.body.id,
                 enunciado:      req.body.enunciado,
                 tipo:           req.body.tipo,
-                enunciadoLimpo: await preProcessamentoFuncao(req.body.enunciado),
+                enunciadoLimpo: await preProcessamentoFuncao(req.body.enunciado, token),
+                chamada:        req.body.chamada,
                 perguntaRaiz:   req.body.perguntaRaiz,
-                pessoaId:       req.body.pessoaId
+                pessoaId:       pessoa.id
             }
 
             var pergunta = new Pergunta(perguntaParams);
+
 
             persistence.update(pergunta, res);
         }

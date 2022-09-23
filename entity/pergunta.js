@@ -10,6 +10,7 @@ var Pergunta = function(params) {
     this.enunciado      = params.enunciado;
     this.tipo           = params.tipo;
     this.enunciadoLimpo = params.enunciadoLimpo;
+    this.chamada        = params.chamada;
     this.perguntaRaiz   = params.perguntaRaiz;
     this.pessoaId       = params.pessoaId;
 }

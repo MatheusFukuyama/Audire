@@ -9,12 +9,11 @@
 const axios = require('axios')
 const similaridade = require('jaro-winkler')
 
-const procurarResposta = require('../../localizarResposta/localizaRespostaId')
 const preProcessamentoFuncao = require('../../preprocessamento/preProcessamentoFuncao')
 
-module.exports = async(pergunta, contextoId, res) => {
+module.exports = async(pergunta, contextoId, res, token) => {
 
-    const perguntaLimpa = await preProcessamentoFuncao(pergunta)
+    const perguntaLimpa = await preProcessamentoFuncao(pergunta, token)
     const tokens = perguntaLimpa.split(' ')
     
     
@@ -26,7 +25,7 @@ module.exports = async(pergunta, contextoId, res) => {
     }
 
     try {
-        const { data } = await axios.get( baseUrlPergunta, { proxy: options})
+        const { data } = await axios.get( baseUrlPergunta, { proxy: options, headers: { 'Authorization': token }})
        
         let posicaoPalavra
         let resultado

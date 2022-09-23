@@ -16,9 +16,7 @@ const options = {
     port: 8000
 }
 
-module.exports = async function procurarResposta(perguntaContextoId) {
-
-
+module.exports = async function procurarResposta(perguntaContextoId, chamada, token) {
 
     try {
         let encontrado = false        
@@ -26,24 +24,29 @@ module.exports = async function procurarResposta(perguntaContextoId) {
             respostas: []
         }
         
-        const { data } = await axios.get( baseUrl, { proxy: options})
+        const { data } = await axios.get( baseUrl, { proxy: options, headers: {'Authorization': token}})
         
         data.forEach( respostaContexto => {   
             if(respostaContexto.perguntaContextoId == perguntaContextoId) {
                 encontrado = true
                 respostaContextoEncontrado.respostas.push(respostaContexto.resposta)
+                respostaContextoEncontrado.id = respostaContexto.id
             }
         })
 
-        if(respostaContextoEncontrado.respostas.length > 1) {
-            //escolher resposta menos utilizada
-        } else {
+        if(respostaContextoEncontrado.respostas.length > 1 && encontrado) {
+            respostaContextoEncontrado.respostaEscolhida = respostaContextoEncontrado.respostas[chamada%respostaContextoEncontrado.respostas.length]
+        } else if(encontrado) {
             respostaContextoEncontrado.respostaEscolhida = respostaContextoEncontrado.respostas[0]
         }
 
+        if(encontrado) {
+            respostaContextoEncontrado.encontrado = true
+        } else {
+            respostaContextoEncontrado.encontrado = false
+        }
 
-        console.log(respostaContextoEncontrado)
-        return 
+        return respostaContextoEncontrado
 
     } catch(err) {
         console.error(err)

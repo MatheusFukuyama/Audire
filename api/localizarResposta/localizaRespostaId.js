@@ -24,7 +24,7 @@ async function perguntaContextoResposta(perguntaContextoId, perguntaId, contexto
     const { data } = await axios.get( baseUrlPerguntaContexto, { proxy: options})
     
     if(data[0]) {
-        console.log(data[0].perguntaId, perguntaId, data[0].contextoId, contextoId)
+        
         if(data[0].perguntaId === perguntaId && data[0].contextoId == contextoId) {       
             encontrado = true
         }

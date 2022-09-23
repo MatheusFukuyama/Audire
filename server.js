@@ -8,6 +8,9 @@
 var express          = require('express');
 var bodyparser       = require('body-parser');
 var validator        = require("express-validator");
+const passport       = require('passport')
+const swaggerUi      = require('swagger-ui-express')
+const swaggerDocs    = require('./swagger.json')
 
 var routePersonagem             = require('./routes/personagem');
 var routeGenero                 = require('./routes/genero');
@@ -30,6 +33,8 @@ var routeDialogo                = require('./routes/dialogo');
 var routeDialogoMap             = require('./routes/dialogoMap');
 var routeEstrategia             = require('./routes/estrategia');
 var routePerguntaContexto       = require('./routes/perguntaContexto');
+var routeAutenticacaoUsuario    = require('./routes/autenticacaoUsuario');
+const { Passport } = require('passport');
 
 
 // creating server instance
@@ -50,6 +55,9 @@ app.use(bodyparser.urlencoded({ extended : true}));
 
 
 //set application route with server instance
+app.use(passport.initialize())
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 routePersonagem.configure(app);
 routeGenero.configure(app);
@@ -72,6 +80,9 @@ routeDialogo.configure(app);
 routeDialogoMap.configure(app);
 routeEstrategia.configure(app);
 routePerguntaContexto.configure(app);
+routeAutenticacaoUsuario.configure(app);
+
+require('./api/autenticacao/passport')(passport)
 
 app.get('/', async(req, res) => {
     res.send('foi')

@@ -39,10 +39,10 @@ function ComunicacaoPersistence() {
         });
 
     // get all objects data 
-    this.getAll = function (res) {
+    this.getAll = function (res, pessoaId) {
         dataBase.getDataBase(globals.dataBaseType)
         .then((db) => {
-            persistence.getAll(db, res);
+            persistence.getAll(db, res, pessoaId);
         });
     };
 
@@ -74,6 +74,13 @@ function ComunicacaoPersistence() {
         dataBase.getDataBase(globals.dataBaseType)
         .then((db) => {    
             persistence.deleteById(db, id, res);
+        });
+    };
+
+    this.updateTermino = function (object, res) {
+        dataBase.getDataBase(globals.dataBaseType)
+        .then((db) => {    
+            persistence.update(db, object, res);
         });
     };
 

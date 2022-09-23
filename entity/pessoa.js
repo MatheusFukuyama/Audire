@@ -13,7 +13,7 @@ var Pessoa = function(params) {
     this.email            = params.email;
     this.senha            = params.senha;
     this.generoId         = params.generoId;
-
+    
 }
 
 module.exports = Pessoa;

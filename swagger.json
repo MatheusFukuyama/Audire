@@ -1,0 +1,138 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Audire API",
+        "description": "Essa api tem como objetivo criar e integrar um assistente virtual a sua aplicação",
+        "contact": {
+            "email": "fukuyama.shinji@aluno.ifsp.edu.br"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/",
+            "description": "API de produção"
+        }
+    ],
+    "paths": {
+        "/rest/pessoa": {
+            "post": {
+                "summary": "Cadastro de Pessoa",
+                "description": "Esta rota é responsável por cadastrar um novo usuário no sistema",
+                "tags": ["Usuario"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pessoa"
+                            },
+                            "examples": {
+                                "Pessoa": {
+                                    "value": {
+                                        "primeiroNome": "Fulano",
+                                        "ultimoNome": "Siclano",
+                                        "email": "fulano.siclano@gmail.com",
+                                        "senha": "123456",
+                                        "generoId": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "400": {
+                            "description": "Email já cadastrado"
+                        },
+                        "200": {
+                            "description": "OK",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Pessoa"
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                   
+                }
+            },
+            "put": {
+                "summary": "Alteração de Pessoa",
+                "description": "Esta rota é responsável por alterar os dados de usuário no sistema",
+                "tags": ["Usuario"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pessoa"
+                            },
+                            "examples": {
+                                "Pessoa": {
+                                    "value": {
+                                        "id": 1,
+                                        "primeiroNome": "Fulano",
+                                        "ultimoNome": "Siclano",
+                                        "email": "fulano.siclano@gmail.com",
+                                        "senha": "123456",
+                                        "generoId": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "200": {
+                            "description": "OK",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Pessoa"
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Pessoa": {
+                "type": "object",
+                "properties": {
+                    "primeiroNome": {
+                        "type": "string"
+                    },
+                    "ultimoNome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    },
+                    "generoId": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
+}

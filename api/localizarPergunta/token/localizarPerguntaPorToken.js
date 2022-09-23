@@ -9,18 +9,15 @@
 const axios = require('axios')
 const similaridade = require('jaro-winkler')
 
-const procurarResposta = require('../../localizarResposta/localizaRespostaId')
 const preProcessamentoFuncao = require('../../preprocessamento/preProcessamentoFuncao')
 const procurarPerguntaPorTokenContido = require('./procurarPerguntaPorTokenContido')
 const procurarPerguntaPorTokenTaxa = require('./procurarPerguntaPorTokenTaxa')
 const procurarPerguntaPorTokenExclusivo = require('./procurarPerguntaPorTokenExclusivo')
 
-module.exports = async(pergunta, contextoId, res) => {
+module.exports = async(pergunta, contextoId, res, token) => {
     
-    const perguntaLimpa = await preProcessamentoFuncao(pergunta)
-    console.log(perguntaLimpa)
+    const perguntaLimpa = await preProcessamentoFuncao(pergunta, token)
     const baseUrlPergunta = 'localhost:8000/rest/perguntas'
-    const baseUrlResposta = 'localhost:8000/rest/respostas'
     const options = {
         protocol: 'https',
         host: '127.0.0.1',
@@ -29,7 +26,7 @@ module.exports = async(pergunta, contextoId, res) => {
 
     try {
         
-        const { data } = await axios.get( baseUrlPergunta, { proxy: options})
+        const { data } = await axios.get( baseUrlPergunta, { proxy: options, headers: { 'Authorization': token }})
         let encontrado = false;
 
         data.forEach(perguntaEnsinada => {
@@ -63,17 +60,17 @@ module.exports = async(pergunta, contextoId, res) => {
                 perguntaEncontrada.metodo = 'localizarPerguntaToken'
                 return perguntaEncontrada
             } else {    
-                perguntaEncontrada = await procurarPerguntaPorTokenContido(pergunta, contextoId, res)
+                perguntaEncontrada = await procurarPerguntaPorTokenContido(pergunta, contextoId, res, token)
                 if(perguntaEncontrada.encontrado){
                     perguntaEncontrada.metodo = 'procurarPerguntaPorTokenContido'
                     return perguntaEncontrada
                 } else {
-                    perguntaEncontrada = await procurarPerguntaPorTokenExclusivo(pergunta, contextoId, res)
+                    perguntaEncontrada = await procurarPerguntaPorTokenExclusivo(pergunta, contextoId, res, token)
                     if(perguntaEncontrada.encontrado){
                         perguntaEncontrada.metodo = 'procurarPerguntaPorTokenExclusivo'
                         return perguntaEncontrada
                     } else {
-                        perguntaEncontrada = await procurarPerguntaPorTokenTaxa(pergunta, contextoId, res)
+                        perguntaEncontrada = await procurarPerguntaPorTokenTaxa(pergunta, contextoId, res, token)
                         if(perguntaEncontrada.encontrado){
                             perguntaEncontrada.metodo = 'procurarPerguntaPorTokenTaxa'
                             return perguntaEncontrada

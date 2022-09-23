@@ -10,7 +10,6 @@
  module.exports = (sequelize, DataTypes) => {
     
     const dialogo = sequelize.pool.define('dialogo', {
-        dataRealizacao: DataTypes.DATE,
         pergunta:       DataTypes.STRING,
         perguntaLimpa:  DataTypes.STRING,
         resposta:       DataTypes.STRING,
@@ -22,17 +21,25 @@
                 key: 'id' 
             }
         },
-        perguntaRaiz: {
+        perguntaRaizId: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'pergunta',
                 key: 'id' 
             }
         },
-        perguntaSinonimo: {
+        perguntaSinonimoId: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'pergunta',
+                key: 'id' 
+            }
+        },
+
+        pessoaId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'pessoa',
                 key: 'id' 
             }
         },

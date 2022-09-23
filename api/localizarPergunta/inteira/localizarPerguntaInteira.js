@@ -9,8 +9,6 @@
 const axios = require('axios')
 const similaridade = require('jaro-winkler')
 
-const procurarResposta = require('../../localizarResposta/localizaRespostaId')
-
 const options = {
     protocol: 'https',
     host: '127.0.0.1',
@@ -20,14 +18,12 @@ const options = {
 
 // async function perguntaContexto(pergunta, )
 
-module.exports = async(pergunta, contextoId, res) => {
-
-    const baseUrlPerguntaContexto = 'localhost:8000/rest/perguntasContextos'
+module.exports = async(pergunta, contextoId, res, token) => {
+    
     const baseUrlPergunta = 'localhost:8000/rest/perguntas'
-    const baseUrlResposta = 'localhost:8000/rest/respostasContextos'
 
     try {
-        const { data } = await axios.get( baseUrlPergunta, { proxy: options})
+        const { data } = await axios.get( baseUrlPergunta, { proxy: options, headers: { 'Authorization': token }})
         let encontrado = false
         let maiorSimilaridade = 0
         let similar

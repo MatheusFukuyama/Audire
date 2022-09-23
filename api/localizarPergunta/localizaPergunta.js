@@ -6,49 +6,78 @@
 */
 //methods for fetching mysql data
 
+
 const localizaPerguntaIntera = require('./inteira/localizarPerguntaInteira')
 const localizaPerguntaPorToken = require('./token/localizarPerguntaPorToken')
 const localizaPerguntaContexto = require('./localizaPerguntaContexto')
 const localizaResposta = require('../localizarResposta/localizaResposta')
+const incrementaChamada = require('./incrementaChamada')
 
-module.exports = async(pergunta, contextoId, res) => {
+module.exports = async(pergunta, contextoId, res, token) => {
 
     try {
         let perguntaContextoRetornado
 
-        let perguntaRetornada = await localizaPerguntaIntera(pergunta, contextoId, res)
+        let perguntaRetornada = await localizaPerguntaIntera(pergunta, contextoId, res, token)
+        
         if(perguntaRetornada.encontrado) {
             
             if(perguntaRetornada.perguntaRaiz == null){
-                perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.id, contextoId, res)
+                perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.id, contextoId, res, token)
+                console.log(perguntaContextoRetornado, 11111)
             }else{
-                perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.perguntaRaiz, contextoId, res)
+                perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.perguntaRaiz, contextoId, res, token)
             }
 
             if(perguntaContextoRetornado.encontrado) {
-                localizaResposta(perguntaContextoRetornado.id)
+                const resposta = await localizaResposta(perguntaContextoRetornado.id, perguntaRetornada.chamada, token)
+                    
+                if(resposta.encontrado){    
+                    incrementaChamada(perguntaRetornada, token)
+                    perguntaRetornada.resposta = resposta.respostaEscolhida
+                    perguntaRetornada.respostaContextoId = resposta.id
+                    return perguntaRetornada
+                } else {
+                    perguntaRetornada.resposta = "Não sei"
+                    return perguntaRetornada
+                }
             }
             else {
-                res.send("pergunta não encontrada")
+                perguntaRetornada.resposta = "Não sei"
+                return perguntaRetornada
             }
         } else {
-            perguntaRetornada = await localizaPerguntaPorToken(pergunta, contextoId, res)
+            perguntaRetornada = await localizaPerguntaPorToken(pergunta, contextoId, res, token)
             if(perguntaRetornada.encontrado) {
-                console.log(perguntaRetornada)
+                
                 if(perguntaRetornada.perguntaRaiz == null){
-                    perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.id, contextoId, res)
+                    perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.id, contextoId, res, token)
                 }else{
-                    perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.perguntaRaiz, contextoId, res)
+                    perguntaContextoRetornado = await localizaPerguntaContexto(perguntaRetornada.perguntaRaiz, contextoId, res, token)
                 }
 
                 if(perguntaContextoRetornado.encontrado) {
-                    localizaResposta(perguntaContextoRetornado.id)
+                    const resposta = await localizaResposta(perguntaContextoRetornado.id, perguntaRetornada.chamada, token)
+                    
+                    if(resposta.encontrado){    
+                        incrementaChamada(perguntaRetornada, token)
+                        perguntaRetornada.resposta = resposta.respostaEscolhida
+                        perguntaRetornada.respostaContextoId = resposta.id
+                        return perguntaRetornada
+                    } else {
+                        perguntaRetornada.resposta = "Não sei"
+                        return perguntaRetornada
+                    }
                 }   
                 else {
-                    res.send("pergunta não encontrada")
+                    perguntaRetornada.resposta = "Não sei"
+                    perguntaRetornada.pergunta = "Não sei"
+                    return perguntaRetornada
                 }
             } else {
-                res.send('pergunta não encontrada')
+                perguntaRetornada.resposta = "Não sei"
+                perguntaRetornada.pergunta = "Não sei"
+                return perguntaRetornada
             }
         }
     } catch(err) {

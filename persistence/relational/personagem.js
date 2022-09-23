@@ -8,16 +8,19 @@
 
 
 var Error = require('../../entity/error.js');
+const pessoa = require('../../routes/pessoa.js');
 
 
 function PersonagemPersistence() {
     // get all objects data 
-    this.getAll = function (db, res) {
+    this.getAll = function (db, pessoaId, res) {
         // calling acquire methods and passing callback method that will be execute query
         // return response to server 
 
         db.personagem
-            .findAll()
+            .findAll({
+                where: { pessoaId }
+            })
             .then(object => {
                 res.send(JSON.parse(JSON.stringify(object)));
             });
